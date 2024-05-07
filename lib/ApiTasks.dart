@@ -29,7 +29,7 @@ Future<Map<String,bool>> registerTask(String name, String email, String password
       return {res["message"]:false};
     }
     }
-    catch(Error){
+    catch(error){
         return {"Server / Api not reachable":false};
     }
   }
@@ -54,11 +54,12 @@ Future<Map<String,bool>> registerTask(String name, String email, String password
       setuser(res["user"]["id"]);
 
       return {res["message"]:true};
+      
     }else{
       return {res["message"]:false};
     }
     }
-    catch(Error){
+    catch(error){
         return {"Server / Api not reachable":false};
     }
   }
@@ -76,8 +77,8 @@ Future<Map<String,bool>> registerTask(String name, String email, String password
       return null;
     }
     }
-    catch(Error){
-        print(Error.toString());
+    catch(error){
+        print(error.toString());
         return null;
     }
   }
