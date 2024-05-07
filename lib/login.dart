@@ -1,7 +1,11 @@
 import 'package:currensee/ApiTasks.dart';
+import 'package:currensee/screens/forgotPassword.dart';
 import 'package:currensee/screens/home.dart';
-import 'package:flutter/foundation.dart';
+import 'package:currensee/screens/register.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:currensee/app_properties.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,185 +15,247 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool isPasswordObs=true;
+  bool isPasswordObs = true;
 
-  String loginError="";
+  String loginError = "";
+  Icon icon = const Icon(Icons.visibility, color: Colors.grey);
 
-  void showPass(){
+  void showPass() {
     setState(() {
-      isPasswordObs= !isPasswordObs;
-      // if(isPasswordObs){
-      //   icon=Icon(Icons.remove_red_eye_outlined);
-      // } else{
-      //   icon=FaIcon(FontAwesomeIcons.gamepad);
-      // }
+      isPasswordObs = !isPasswordObs;
+      if (isPasswordObs) {
+        icon = Icon(Icons.visibility, color: Colors.grey);
+      } else {
+        icon = Icon(Icons.visibility_off, color: Colors.grey);
+      }
     });
   }
 
-  Future<void> login() async{
+  Future<void> login() async {
     var res = await loginTask(_emailController.text, _passwordController.text);
-    var res2=res.keys.toList();
-    if(res[res2[0]]!){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => HomeScreen()));
-    } else{
+    var res2 = res.keys.toList();
+    if (res[res2[0]]!) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    } else {
       setState(() {
-        loginError=res2[0];
+        loginError = res2[0];
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 118, 51, 170),
-                  Color.fromARGB(255, 215, 15, 233),
-                ],
-              ),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.only(top: 40.0, left: 22),
-              child: Text(
-                'Welcome To CurrenSee!',
-                style: TextStyle(
-                  fontSize: 40,
-                  fontFamily: AutofillHints.birthday,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+        body: SingleChildScrollView(
+      child: Container(
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+            gradient: colorProperties.gradientcolor,
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 200.0),
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                ),
-                color: Colors.white,
-              ),
-              height: double.infinity,
-              width: double.infinity,
+          child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.only(left: 18.0, right: 18),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextFormField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          labelText: 'Email', 
-                          labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 118, 51, 170),
+            padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+            child: Column(children: [
+              Text(
+                "Welcome Back",
+                style: GoogleFonts.badScript(
+                  textStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 47,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(height: 10),
+              const SizedBox(
+                height: 15,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                child: Container(
+                  height: MediaQuery.sizeOf(context).height,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
+                    ),
+                    color: Colors.white,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(children: [
+                        TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: colorProperties.purpleTextColor,
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors
+                                      .grey), // Set transparent color
+                            ),
                           ),
                         ),
-                      ),
-                      TextFormField(
-                        obscureText: isPasswordObs,
-                        controller: _passwordController,
-                        decoration: InputDecoration(
-                          suffixIcon:
-                              IconButton(onPressed: showPass,icon: Icon(Icons.visibility_off, color: Colors.grey),),
-                          labelText: 'Password', // Use labelText instead of label
-                          labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 118, 51, 170),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        TextFormField(
+                          obscureText: isPasswordObs,
+                          controller: _passwordController,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              onPressed: showPass,
+                              icon: icon,
+                            ),
+                            labelText: 'Password',
+                            labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: colorProperties.purpleTextColor,
+                            ),
+                             focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors
+                                      .grey), // Set transparent color
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 60),
-                      Align(
-                        alignment: Alignment.center,
-                        child: TextButton(
-                          onPressed: (){},
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        ElevatedButton(
+                          onPressed: login,
+                          style: ElevatedButton.styleFrom(
+                            elevation: 10,
+                            backgroundColor: Colors.white,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 50),
+                          ),
                           child: Text(
-                            'Forgot Password?',
+                            'LOGIN',
+                            textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 19,
-                              color: Color.fromARGB(255, 118, 51, 170),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 30),
-                      Container(
-                        height: 55,
-                        width: 300,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          gradient: const LinearGradient(
-                            colors: [
-                              Color.fromARGB(255, 118, 51, 170),
-                              Color.fromARGB(255, 215, 15, 233),
-                            ],
-                          ),
-                        ),
-                        child: Center(
-                          child: TextButton(
-                            onPressed: () {
-                              
-                            },
-                            child: Text('LOG IN',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
                               fontSize: 20,
-                              color: Colors.white,)
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 80),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Column(
+                        const SizedBox(
+                          height: 17,
+                        ),
+                        Column(
                           children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ForgotPasswordScreen(), // ForgotPasswordScreen par navigation
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                "Forgot Password?",
+                                style: TextStyle(
+                                  color: colorProperties.purpleTextColor,
+                                  fontSize: 16,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                                height:
+                                    16), // Add space between the two text widgets
                             Text(
-                              'Dont have an account?',
+                              "Don't Have an Account?",
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 118, 51, 170),
-                                fontSize: 15,
+                                color: Colors.black,
+                                fontSize: 22,
+                                fontStyle: FontStyle.italic,
                               ),
                             ),
                             TextButton(
-                              onPressed: (){},
-                              child: Text(
-                                'Sign up',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 30,
-                                  color: Color.fromARGB(255, 215, 15, 233),
-                                ),
-                              ),
-                            )
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const RegisterPageScreen()));
+                                },
+                                child: Text(
+                                  "Sign up",
+                                  style: TextStyle(
+                                      color: colorProperties.purpleTextColor,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold),
+                                ))
                           ],
                         ),
-                      )
-                    ],
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          '------------------or------------------',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        ElevatedButton.icon(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            elevation: 10,
+                            backgroundColor: Colors.white,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 50),
+                          ),
+                          icon: Padding(
+                            padding: const EdgeInsets.only(right: 20.0),
+                            child: Image.asset(
+                              'lib/images/Google_logo.png',
+                              height: 40, // Adjust the height as needed
+                            ),
+                          ),
+                          label: Text(
+                            'Login With Google',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontStyle: FontStyle.normal,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ]),
+                    ),
                   ),
                 ),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
+              )
+            ]),
+          ))),
+    ));
   }
 }
