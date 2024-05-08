@@ -12,3 +12,6 @@ String conversion="https://currensee.000webhostapp.com/conversion/convert.php";
 
 //Forgot Password URL
 String forgotpasswordurl="https://currensee.000webhostapp.com/auth/reset.php";
+
+//Feedback URL
+String feedbackurl="https://currensee.000webhostapp.com/feedback.php";
