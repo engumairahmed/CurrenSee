@@ -86,7 +86,7 @@ class RegisterScreen extends StatelessWidget{
                     const TextField(
                       decoration: InputDecoration(
                         suffixIcon: Icon(Icons.visibility_off, color: Colors.grey),
-                        label: Text('Cconfirm Password', style: TextStyle(
+                        label: Text('Confirm Password', style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color:Color.fromARGB(255, 118, 51, 170),
                         ),)
@@ -99,7 +99,7 @@ class RegisterScreen extends StatelessWidget{
                       width: 300,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        gradient:  colorProperties.gradientcolor,
+                        gradient:  ColorProperties.gradientcolor,
                       ),
                       child: const Center(child: Text('Register', style: TextStyle(
                         fontWeight: FontWeight.bold,

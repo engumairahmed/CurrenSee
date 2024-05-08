@@ -1,6 +1,7 @@
-import 'package:currency_app/FaqScreen.dart';
+import 'package:currensee/ApiTasks.dart';
+import 'package:currensee/app_properties.dart';
+import 'package:currensee/screens/FaqScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class FeedBackScreen extends StatefulWidget {
   const FeedBackScreen({Key? key}) : super(key: key);
@@ -14,17 +15,10 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
 
   int _rating = 0;
   String _feedback = '';
-  late String _timestamp;
 
   @override
   void initState() {
     super.initState();
-    _timestamp = _getCurrentTimestamp();
-  }
-
-  String _getCurrentTimestamp() {
-    var now = DateTime.now();
-    return DateFormat('dd-MM-yyyy /  hh:mm').format(now);
   }
 
   void _onRatingChanged(int rating) {
@@ -39,12 +33,12 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
     });
   }
 
-  void _submitFeedback() {
+  Future<void> _submitFeedback() async {
     if (formkey.currentState!.validate()) {
       // Send feedback data to your server or database
+      var res = await feedbackTask(_feedback, _rating);
       print('Rating: $_rating');
       print('Feedback: $_feedback');
-      print('Timestamp: $_timestamp');
     }
   }
 
@@ -61,19 +55,17 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(colors: [
-            Color.fromARGB(255, 250, 130, 130),
-            Color.fromARGB(255, 255, 255, 255),
-          ]),
+        decoration: BoxDecoration(
+          gradient: ColorProperties.gradi,
         ),
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(16.0),
+          padding: EdgeInsets.fromLTRB(10,60,10,0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              SizedBox(height: 40,),
               Text(
-                'Rate our CurrenSee app:',
+                'Rate our application:',
                 style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8.0),
@@ -133,22 +125,22 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
                         onChanged: _onFeedbackChanged,
                       ),
                       SizedBox(height: 16.0),
-                      Text(
-                        '$_timestamp',
-                        style: TextStyle(fontSize: 16.0),
-                     
-
-                      ),
-                      SizedBox(height: 16.0),
-                      TextButton(
+                      ElevatedButton(
                         onPressed: _submitFeedback,
+                        style: ElevatedButton.styleFrom(
+                                elevation: 15,
+                                backgroundColor: Colors.white,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 20, horizontal: 50),
+                              ),
                         child: Text(
-                          "Submit",
+                          "Submit",                          
                           style: TextStyle(
                               color: Color(0xB2000000),
-                              fontSize: 40,
+                              fontSize: 30,
                               fontWeight: FontWeight.bold),
                         ),
+                        
                       ),
                     ],
                   ),
@@ -158,27 +150,14 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => FAQScreen()),
-          );
-        },
-        child: BottomAppBar(
-          color: Colors.pinkAccent,
-          height: 60,
-          child: Center(
-              child: Text(
-            "FAQ ",
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                fontStyle: FontStyle.italic),
-          )),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        child: Row(
+          children: [
+            IconButton(onPressed: (){}, icon: Icon(Icons.access_alarm_outlined))
+          ],
         ),
-      ),
+      )
     );
   }
 }

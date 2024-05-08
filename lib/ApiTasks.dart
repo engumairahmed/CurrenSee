@@ -82,3 +82,34 @@ Future<Map<String,bool>> registerTask(String name, String email, String password
         return null;
     }
   }
+
+  Future<void> feedbackTask(String message, int rating) async {
+    try{
+      Map<String, dynamic> data = {
+      'message': message,
+      'rating':rating,
+      'id':await getUser(),
+    };
+
+    String body = jsonEncode(data);
+
+    http.Response response = await http.post(
+      Uri.parse(feedbackurl),
+      body: body,
+    );
+
+    var res = jsonDecode(response.body);
+
+    if(response.statusCode==200){
+      print(res[0]);
+      print("Feedback Success");
+      
+    }else{
+      print("Feedback Failure");
+    }
+    }
+    catch(error){
+        print(error.toString());
+        return;
+    }
+  }

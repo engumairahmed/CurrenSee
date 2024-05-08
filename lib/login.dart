@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Container(
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
-            gradient: colorProperties.gradientcolor,
+            gradient: ColorProperties.gradientcolor,
           ),
           child: SingleChildScrollView(
               child: Padding(
@@ -96,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             labelText: 'Email',
                             labelStyle: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: colorProperties.purpleTextColor,
+                              color: ColorProperties.purpleTextColor,
                             ),
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             labelText: 'Password',
                             labelStyle: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: colorProperties.purpleTextColor,
+                              color: ColorProperties.purpleTextColor,
                             ),
                              focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
@@ -171,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Text(
                                 "Forgot Password?",
                                 style: TextStyle(
-                                  color: colorProperties.purpleTextColor,
+                                  color: ColorProperties.purpleTextColor,
                                   fontSize: 16,
                                   fontStyle: FontStyle.italic,
                                 ),
@@ -199,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Text(
                                   "Sign up",
                                   style: TextStyle(
-                                      color: colorProperties.purpleTextColor,
+                                      color: ColorProperties.purpleTextColor,
                                       fontSize: 30,
                                       fontWeight: FontWeight.bold),
                                 ))
