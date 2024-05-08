@@ -3,7 +3,6 @@ import 'package:currensee/screens/forgotPassword.dart';
 import 'package:currensee/screens/home.dart';
 import 'package:currensee/screens/register.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:currensee/app_properties.dart';
 
@@ -37,6 +36,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   Future<void> login() async {
     var res = await loginTask(_emailController.text, _passwordController.text);
     var res2 = res.keys.toList();
+    print(res2);
     if (res[res2[0]]!) {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => HomeScreen()));
@@ -93,6 +93,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                         TextFormField(
                           controller: _emailController,
                           decoration: InputDecoration(
+                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: colorProperties.purpleTextColor,width: 2)),
                               labelText: 'Email',
                               labelStyle: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -107,6 +108,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                           obscureText: isPasswordObs,
                           controller: _passwordController,
                           decoration: InputDecoration(
+                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: colorProperties.purpleTextColor,width: 2)),
                             suffixIcon: IconButton(
                               onPressed: showPass,
                               icon: icon,
@@ -136,7 +138,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                             'LOGIN',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.black,
+                              color: colorProperties.purpleTextColor,
                               fontSize: 20,
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.bold,
