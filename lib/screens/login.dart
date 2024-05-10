@@ -1,4 +1,5 @@
 import 'package:currensee/ApiTasks.dart';
+import 'package:currensee/navigation.dart';
 import 'package:currensee/screens/forgotPassword.dart';
 import 'package:currensee/screens/home.dart';
 import 'package:currensee/screens/register.dart';
@@ -39,7 +40,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
     print(res2);
     if (res[res2[0]]!) {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          context, MaterialPageRoute(builder: (context) => bottomNavigationBar()));
     } else {
       setState(() {
         loginError = res2[0];

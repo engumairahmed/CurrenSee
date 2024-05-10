@@ -30,6 +30,7 @@ Future<Map<String,bool>> registerTask(String name, String email, String password
     }
     }
     catch(error){
+      
         return {"Server / Api not reachable":false};
     }
   }
@@ -60,6 +61,7 @@ Future<Map<String,bool>> registerTask(String name, String email, String password
     }
     }
     catch(error){
+      print(error.toString());
         return {"Server / Api not reachable":false};
     }
   }
