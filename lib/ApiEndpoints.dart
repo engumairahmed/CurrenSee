@@ -1,6 +1,6 @@
 //Login URL
-// String loginurl="https://glamndglow.000webhostapp.com/api/login.php";
-String loginurl="http://localhost/phpapi/currensee/auth/login.php";
+String loginurl="https://currensee.000webhostapp.com/auth/login.php";
+// String loginurl="http://localhost/phpapi/currensee/auth/login.php";
 
 //Register URL
 String registerurl="https://currensee.000webhostapp.com/auth/register.php";
@@ -15,5 +15,5 @@ String conversion="https://currensee.000webhostapp.com/conversion/convert.php";
 String forgotpasswordurl="https://currensee.000webhostapp.com/auth/reset.php";
 
 //Feedback URL
-//String feedbackurl="https://currensee.000webhostapp.com/feedback.php";
 String feedbackurl="https://currensee.000webhostapp.com/feedback.php";
+// String feedbackurl="http://localhost/phpapi/currensee/feedback.php";
