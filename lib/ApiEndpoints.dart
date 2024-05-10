@@ -16,4 +16,4 @@ String forgotpasswordurl="https://currensee.000webhostapp.com/auth/reset.php";
 
 //Feedback URL
 //String feedbackurl="https://currensee.000webhostapp.com/feedback.php";
-String feedbackurl="https://localhost/phpapi/currensee/feedback.php";
+String feedbackurl="https://currensee.000webhostapp.com/feedback.php";
