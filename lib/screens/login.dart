@@ -38,9 +38,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   Future<void> login() async {
     var res = await loginTask(_emailController.text, _passwordController.text);
     var res2 = res.keys.toList();
-    print(res2);
-    var UserId = await getUser();
-    print(UserId);
+   
     if (res[res2[0]]!) {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => bottomNavigationBar()));

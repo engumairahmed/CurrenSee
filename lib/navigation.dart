@@ -17,7 +17,7 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
   List pages = const[
     HomeScreen(),
     ConverterScreen(),
-    FeedBackScreen()
+    FeedBackScreen(),
   ];
   @override
   Widget build(BuildContext context) {

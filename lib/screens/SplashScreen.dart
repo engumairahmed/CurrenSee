@@ -10,6 +10,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   bool isLoggedIn=false;
+
   Future<void> checkUser() async{
     var id = await getUser();
     if(id == null){
@@ -28,17 +29,24 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     // Add any initialization logic here, such as loading data or animations
     // After a delay, navigate to the main screen
-    checkUser();
-    if(isLoggedIn){
-    Future.delayed(Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginPageScreen()),
-      );
-    });  
-    } else{
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const bottomNavigationBar()));
+    checkUser().then((_) {
+    // checkUser() is completed
+    if (isLoggedIn) {
+      Future.delayed(Duration(seconds: 3), () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const bottomNavigationBar()),
+        );
+      });
+    } else {
+      Future.delayed(Duration(seconds: 3), () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginPageScreen()),
+        );
+      });
     }
+  });  
     
   }
 
@@ -50,11 +58,11 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-             'https:mail.google.com/mail/u/0/#inbox/FMfcgzGxSvBlvffWmCzTvpfZxSLnXpDr?projector=1&messagePartId=0.1' ,
+             'lib/images/PNG02.png' ,
              width: 200, // Adjust the width of the logo image
             ),
-            const SizedBox(height: 20), // Add some spacing between the logo and other content if needed
-            const CircularProgressIndicator(), // Add a loading indicator or any other widgets as needed
+             SizedBox(height: 20), // Add some spacing between the logo and other content if needed
+             CircularProgressIndicator(), // Add a loading indicator or any other widgets as needed
           ],
         ),
       ),

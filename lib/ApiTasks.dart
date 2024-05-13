@@ -115,3 +115,38 @@ Future<Map<String,bool>> registerTask(String name, String email, String password
         return;
     }
   }
+
+
+  Future<Map<String,dynamic>> conversionTask(String baseCurrency,String targetCurrency, String amount) async{
+    try{
+      Map<String, dynamic> data = {
+      'base': baseCurrency,
+      'target':targetCurrency,
+      'id':4,
+      'amount':amount
+    };
+
+    String body = jsonEncode(data);
+
+    http.Response response = await http.post(
+      Uri.parse(conversionUrl),
+      body: body,
+    );
+
+    var res = jsonDecode(response.body);
+
+    if(response.statusCode==200){
+      // print(res);
+      // print("Conversion Success");
+      return {"rate":res["exchange_rate"],"amount":res["converted_amount"]};
+      
+    }else{
+      print("Feedback Failure");
+      return {"message":"API Failure"};
+    }
+    }
+    catch(error){
+        print(error.toString());
+        return {};
+    }
+  }
