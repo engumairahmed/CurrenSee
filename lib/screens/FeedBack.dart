@@ -1,4 +1,5 @@
 import 'package:currensee/ApiTasks.dart';
+import 'package:currensee/Preferences.dart';
 import 'package:currensee/app_properties.dart';
 import 'package:currensee/navigation.dart';
 import 'package:currensee/screens/FaqScreen.dart';
@@ -37,6 +38,7 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
   Future<void> _submitFeedback() async {
     if (formkey.currentState!.validate()) {
       // Send feedback data to your server or database
+      // var UserId=await getUser();
       var res = await feedbackTask(_feedback, _rating);
       print('Rating: $_rating');
       print('Feedback: $_feedback');
