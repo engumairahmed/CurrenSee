@@ -1,4 +1,5 @@
 import 'package:currensee/ApiTasks.dart';
+import 'package:currensee/Preferences.dart';
 import 'package:currensee/navigation.dart';
 import 'package:currensee/screens/forgotPassword.dart';
 import 'package:currensee/screens/home.dart';
@@ -37,7 +38,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   Future<void> login() async {
     var res = await loginTask(_emailController.text, _passwordController.text);
     var res2 = res.keys.toList();
-    print(res2);
+   
     if (res[res2[0]]!) {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => bottomNavigationBar()));

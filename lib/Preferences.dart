@@ -10,10 +10,17 @@ Future<void> setuser(String id) async {
   // print(shared.getString("user_id"));
 }
 
-Future<String> getUser() async {
+Future<String?> getUser() async {
   SharedPreferences shared = await SharedPreferences.getInstance();
   var id = shared.getString("user_id");
-  return id!;
+  if(id==null){
+
+    return null;
+
+  } else{
+
+  return id;
+  }
 }
 
 Future<UserModel> getUserData() async {
