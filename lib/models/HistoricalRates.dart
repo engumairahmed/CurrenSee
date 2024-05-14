@@ -1,5 +1,14 @@
 class HistoricalRates{
-  HistoricalRates(this.year,this.rates);
-  final DateTime year;
-  final double rates;
+
+  HistoricalRates({required this.month, required this.rate});
+
+  late DateTime month;
+  late double rate;
+
+  static HistoricalRates convertFromJson(Map<String, dynamic> json){
+    return HistoricalRates(
+      month: json["month"],
+      rate: json["rates"]
+    );
+  }
 }

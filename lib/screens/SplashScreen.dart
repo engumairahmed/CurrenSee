@@ -62,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
              width: 200, // Adjust the width of the logo image
             ),
              SizedBox(height: 20), // Add some spacing between the logo and other content if needed
-             CircularProgressIndicator(), // Add a loading indicator or any other widgets as needed
+            //  CircularProgressIndicator(), // Add a loading indicator or any other widgets as needed
           ],
         ),
       ),

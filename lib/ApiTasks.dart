@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:currensee/ApiEndpoints.dart';
 import 'package:currensee/Preferences.dart';
+import 'package:currensee/models/HistoricalRates.dart';
 import 'package:http/http.dart' as http;
 
 Future<Map<String,bool>> registerTask(String name, String email, String password) async{
@@ -148,5 +149,40 @@ Future<Map<String,bool>> registerTask(String name, String email, String password
     catch(error){
         print(error.toString());
         return {};
+    }
+  }
+
+  Future<List<HistoricalRates>> historicalRateTask(int month, int year, String currency) async {
+    try{
+      Map<String, dynamic> data = {
+      'month': month,
+      'year': year,
+      'currencyCode': currency
+    };
+
+    String body = jsonEncode(data);
+
+    http.Response response = await http.post(
+      Uri.parse(historicalRatesURL),
+      body: body,
+    );
+
+    List<dynamic> result = jsonDecode(response.body);
+
+    var res = result.map((e) => HistoricalRates.convertFromJson(e)).toList();
+
+    if(response.statusCode==200){
+      print(res);
+      print("History Rates Success");
+      return res;
+      
+    }else{
+      print("Feedback Failure");
+      return [];
+    }
+    }
+    catch(error){
+        print(error.toString());
+        return [];
     }
   }

@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:currensee/screens/Converter.dart';
 import 'package:currensee/screens/FeedBack.dart';
+import 'package:currensee/screens/chart.dart';
 import 'package:currensee/screens/home.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
   int myCurrentIndex = 0 ;
   List pages = const[
     HomeScreen(),
+    ChartScreen(),
     ConverterScreen(),
     FeedBackScreen(),
   ];
@@ -54,7 +56,7 @@ bottomNavigationBar: Container(
         BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
         BottomNavigationBarItem(icon: Icon(Icons.chat_rounded), label: "Chart"),
         BottomNavigationBarItem(icon: Icon(Icons.local_convenience_store_rounded), label: "Convert"),
-        // BottomNavigationBarItem(icon: Icon(Icons.feedback), label: "Feedback"),
+        BottomNavigationBarItem(icon: Icon(Icons.feedback), label: "Feedback"),
         // BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
       ],),
     ),

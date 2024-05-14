@@ -17,3 +17,10 @@ String forgotpasswordurl="https://currensee.000webhostapp.com/auth/reset.php";
 //Feedback URL
 String feedbackurl="https://currensee.000webhostapp.com/feedback.php";
 // String feedbackurl="http://localhost/phpapi/currensee/feedback.php";
+
+//Historical Rates URL
+String historicalRatesURL="https://currensee.000webhostapp.com/conversion/historical.php";
+
+//Get Currency Codes URL
+String currencyCodesURL="https://currensee.000webhostapp.com/conversion/getcurrencycodes.php";
+
