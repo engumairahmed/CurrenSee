@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: CurrencyConverterScreen(),
+      home: LoginPageScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

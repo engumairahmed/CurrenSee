@@ -56,7 +56,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
       child: Container(
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
-            gradient: ColorProperties.gradientcolor,
+            gradient: ColorProperties.mainColor,
           ),
           child: SingleChildScrollView(
               child: Padding(
@@ -95,11 +95,11 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                         TextFormField(
                           controller: _emailController,
                           decoration: InputDecoration(
-                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: ColorProperties.maroonTextColor,width: 2)),
+                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: ColorProperties.darkColor,width: 2)),
                               labelText: 'Email',
                               labelStyle: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: ColorProperties.maroonTextColor,
+                                color: ColorProperties.darkColor,
                               ),
                             ),
                         ),
@@ -110,7 +110,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                           obscureText: isPasswordObs,
                           controller: _passwordController,
                           decoration: InputDecoration(
-                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: ColorProperties.maroonTextColor,width: 2)),
+                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: ColorProperties.darkColor,width: 2)),
                             suffixIcon: IconButton(
                               onPressed: showPass,
                               icon: icon,
@@ -118,7 +118,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                             labelText: 'Password',
                             labelStyle: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: ColorProperties.maroonTextColor,
+                              color: ColorProperties.darkColor,
                             ),
                           ),
                         ),
@@ -140,7 +140,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                             'LOGIN',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: ColorProperties.maroonTextColor,
+                              color: ColorProperties.darkColor,
                               fontSize: 20,
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.bold,
@@ -165,7 +165,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                               child: Text(
                                 "Forgot Password?",
                                 style: TextStyle(
-                                  color: ColorProperties.maroonTextColor,
+                                  color: ColorProperties.darkColor,
                                   fontSize: 16,
                                   fontStyle: FontStyle.italic,
                                 ),
@@ -193,7 +193,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                                 child: Text(
                                   "Sign up",
                                   style: TextStyle(
-                                      color: ColorProperties.maroonTextColor,
+                                      color: ColorProperties.darkColor,
                                       fontSize: 30,
                                       fontWeight: FontWeight.bold),
                                 ))

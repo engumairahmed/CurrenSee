@@ -1,13 +1,9 @@
-// // import 'package:currency_app/drawer.dart';
-// // import 'package:currency_app/drop_down.dart';
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:currensee/ApiTasks.dart';
+import 'package:currensee/app_properties.dart';
 import 'package:flutter/material.dart';
-// import 'package:google_fonts/google_fonts.dart';
-
-// // import 'AppBar.dart';
-// // import 'BottomNavigation.dart';
 
 class CurrencyConverterScreen extends StatefulWidget {
   const CurrencyConverterScreen({Key? key}) : super(key: key);
@@ -22,9 +18,6 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
   TextEditingController _rate = TextEditingController();
   TextEditingController _converted = TextEditingController();
 
-  // String result = "";
-  // late String rate;
-
   String _baseCurrency = '';
   String _targetCurrency = '';
 
@@ -36,7 +29,7 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
     _fetchCurrencyCodes();
   }
 
-  Future<void> _fetchCurrencyCodes  () async {
+  Future<void> _fetchCurrencyCodes() async {
     try {
       _currencyCodes = await fetchCurrencyCodes();
       setState(() {
@@ -64,9 +57,11 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF212936),
+      backgroundColor: const Color.fromARGB(255, 75, 75, 75),
       appBar: AppBar(
-        title: Text('Currency Converter', ),
+        title: Text(
+          'Currency Converter',
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -74,17 +69,6 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 200.0,
-              child: Text(
-                "Currency Converter",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
             SizedBox(
               height: 20.0,
             ),
@@ -93,14 +77,17 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
               child: TextField(
                 controller: _amount,
                 decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
                   fillColor: Colors.white,
                   filled: true,
                   labelText: "Input Value to Convert",
                   labelStyle: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: 18.0,
-                    color: Color(0xFF2849E5)
-                  ),
+                      fontWeight: FontWeight.normal,
+                      fontSize: 18.0,
+                      color: ColorProperties.secondColor),
                 ),
                 style: TextStyle(
                   color: Colors.black,
@@ -115,96 +102,89 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
               height: 20.0,
             ),
             Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  children: [
-    Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(8.0),
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8.0),
+                        ),
+                      ),
+                      child: DropdownButtonFormField<String>(
+                        value: _baseCurrency,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            _baseCurrency = newValue!;
+                          });
+                        },
+                        items: _currencyCodes.map((String currency) {
+                          return DropdownMenuItem<String>(
+                            value: currency,
+                            child: Text(currency),
+                          );
+                        }).toList(),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 15),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                FloatingActionButton(
+                  onPressed: () {
+                    String temp = _baseCurrency;
+                    setState(() {
+                      _baseCurrency = _targetCurrency;
+                      _targetCurrency = temp;
+                    });
+                  },
+                  child: Icon(Icons.swap_horiz),
+                  elevation: 0.0,
+                  backgroundColor: Color(0xFF2849E5),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8.0),
+                        ),
+                      ),
+                      child: DropdownButtonFormField<String>(
+                        value: _targetCurrency,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            _targetCurrency = newValue!;
+                          });
+                        },
+                        items: _currencyCodes.map((String currency) {
+                          return DropdownMenuItem<String>(
+                            value: currency,
+                            child: Text(currency),
+                          );
+                        }).toList(),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 15),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          child: DropdownButtonFormField<String>(
-            value: _baseCurrency,
-            onChanged: (String? newValue) {
-              setState(() {
-                _baseCurrency = newValue!;
-              });
-            },
-            items: _currencyCodes.map((String currency) {
-              return DropdownMenuItem<String>(
-                value: currency,
-                child: Text(currency),
-              );
-            }).toList(),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-            ),
-          ),
-        ),
-      ),
-    ),
-    FloatingActionButton(
-      onPressed: () {
-        String temp = _baseCurrency;
-        setState(() {
-          _baseCurrency = _targetCurrency;
-          _targetCurrency = temp;
-        });
-      },
-      child: Icon(Icons.swap_horiz),
-      elevation: 0.0,
-      backgroundColor: Color(0xFF2849E5),
-    ),
-    SizedBox(
-      width: 20.0,
-    ),
-    Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(8.0),
-            ),
-          ),
-          child: DropdownButtonFormField<String>(
-            value: _targetCurrency,
-            onChanged: (String? newValue) {
-              setState(() {
-                _targetCurrency = newValue!;
-              });
-            },
-            items: _currencyCodes.map((String currency) {
-              return DropdownMenuItem<String>(
-                value: currency,
-                child: Text(currency),
-              );
-            }).toList(),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-            ),
-          ),
-        ),
-      ),
-    ),
-  ],
-),
             SizedBox(
               height: 20.0,
             ),
-            // ElevatedButton(
-            //   onPressed: _convert,
-            //   child: Text('Convert'),
-            // ),
             SizedBox(
               height: 20.0,
             ),
@@ -218,55 +198,68 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
                     Radius.circular(16.0),
                   ),
                 ),
-                child: Column(children: [
-                  Text("Result",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                  ),),
-                  Text( _rate.text, style: TextStyle(
-                    color: Color(0xFF2849E5),
-                    fontSize: 36.0,
-                    fontWeight: FontWeight.bold,
-                  ), 
-                  
-                  ),
-                   Text("Exchange rates:",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.normal,
-                  ),),
-                   Text( _converted.text, style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                  ), 
-                  
-                  ),
-                
-                ],),
-                
-                
+                child: Column(
+                  children: [
+                    Text(
+                      "Result",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      _rate.text,
+                      style: TextStyle(
+                        color: ColorProperties.firstColor,
+                        fontSize: 36.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "Exchange rates:",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    Text(
+                      _converted.text,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-             SizedBox(
+            SizedBox(
               height: 20.0,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: _convert,
-                child: Text('CONVERT', style: TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold),),
-                style: ElevatedButton.styleFrom(
-                                      backgroundColor: Color(0xFF2849E5),
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 25, horizontal: 165),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                      ),
-                )
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                    onPressed: _convert,
+                    child: Text(
+                      'CONVERT',
+                      style: TextStyle(
+                          color: ColorProperties.secondColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      elevation: 10,
+                      shadowColor: Colors.white,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 25, horizontal: 165),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                    )),
               ),
             ),
           ],

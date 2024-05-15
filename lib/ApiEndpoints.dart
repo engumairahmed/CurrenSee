@@ -9,8 +9,8 @@ String registerurl="https://currensee.000webhostapp.com/auth/register.php";
 String userDataUrl="https://currensee.000webhostapp.com/auth/user.php?id=";
 
 //Conversion URL
-// String conversionUrl="https://currensee.000webhostapp.com/conversion/convert.php";
-String conversionUrl="http://localhost/phpapi/currensee/conversion/convert.php";
+String conversionUrl="https://currensee.000webhostapp.com/conversion/convert.php";
+// String conversionUrl="http://localhost/phpapi/currensee/conversion/convert.php";
 
 //Forgot Password URL
 String forgotpasswordurl="https://currensee.000webhostapp.com/auth/reset.php";
