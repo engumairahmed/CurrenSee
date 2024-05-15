@@ -32,7 +32,7 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
     });
   }
 
-  int myCurrentIndex = 0 ;
+  int myCurrentIndex = 1 ;
   List pages = const[
     HomeScreen(),
     ChartScreen(),

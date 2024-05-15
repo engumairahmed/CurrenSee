@@ -120,7 +120,7 @@ class _ChartScreenState extends State<ChartScreen> {
                 RotatedBox(
                   quarterTurns: 3,
                   child: Text(
-                    selectedCurrency,
+                    'PKR',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -135,7 +135,7 @@ class _ChartScreenState extends State<ChartScreen> {
                             child: SfCartesianChart(
                               primaryXAxis: DateTimeAxis(
                                 intervalType: DateTimeIntervalType.days,
-                                interval: 2,
+                                interval: 1,
                               ),
                               tooltipBehavior: _tooltipBehavior,
                               series: <CartesianSeries>[
@@ -155,7 +155,7 @@ class _ChartScreenState extends State<ChartScreen> {
                         ),
                       ),
                       Transform.rotate(
-                        angle: -0.785398,
+                        angle:0,
                         child: Padding(
                           padding: const EdgeInsets.only(top:8.0),
                           child: Text(

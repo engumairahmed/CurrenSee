@@ -1,5 +1,7 @@
 import 'package:currensee/login.dart';
 import 'package:currensee/navigation.dart';
+import 'package:currensee/screens/Converter.dart';
+import 'package:currensee/screens/CurrencyConvert.dart';
 import 'package:currensee/screens/FaqScreen.dart';
 import 'package:currensee/screens/FeedBack.dart';
 import 'package:currensee/screens/SplashScreen.dart';
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: SplashScreen(),
+      home: CurrencyConverterScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

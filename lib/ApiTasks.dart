@@ -179,3 +179,21 @@ Future<Map<String,bool>> registerTask(String name, String email, String password
         return [];
     }
   }
+
+Future<List<String>> fetchCurrencyCodes() async {
+  try {
+    final response = await http.get(Uri.parse(currencyCodesURL));
+
+    if (response.statusCode == 200) {
+      final List<dynamic> data = jsonDecode(response.body);
+      List<String> currencyCodes =
+          data.map((e) => e['CurrencyCode'].toString()).toList();
+      return currencyCodes;
+    } else {
+      throw Exception('Failed to load currency codes');
+    }
+  } catch (e) {
+    print(e.toString());
+    return [];
+  }
+}

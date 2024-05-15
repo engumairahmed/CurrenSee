@@ -1,7 +1,9 @@
 import 'package:currensee/Preferences.dart';
+import 'package:currensee/app_properties.dart';
 import 'package:currensee/navigation.dart';
 import 'package:currensee/screens/login.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -54,18 +56,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorProperties.maroonTextColor,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-             'lib/images/PNG02.png' ,
-             width: 200, // Adjust the width of the logo image
-            ),
-             SizedBox(height: 20), // Add some spacing between the logo and other content if needed
-            //  CircularProgressIndicator(), // Add a loading indicator or any other widgets as needed
-          ],
-        ),
+        child: Lottie.asset('lib/images/logo.json'),
       ),
     );
   }
