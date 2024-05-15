@@ -73,7 +73,7 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
         child: Container(
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
-            gradient: ColorProperties.gradientcolor,
+            gradient: ColorProperties.mainColor,
           ),
           child: SingleChildScrollView(
             child: Column(
@@ -122,12 +122,12 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                           color:
-                                              ColorProperties.maroonTextColor,
+                                              ColorProperties.darkColor,
                                           width: 2)),
                                   labelText: 'Name',
                                   labelStyle: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: ColorProperties.maroonTextColor,
+                                    color: ColorProperties.darkColor,
                                   ),
                                 ),
                               ),
@@ -140,12 +140,12 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                           color:
-                                              ColorProperties.maroonTextColor,
+                                              ColorProperties.darkColor,
                                           width: 2)),
                                   labelText: 'Email',
                                   labelStyle: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: ColorProperties.maroonTextColor,
+                                    color: ColorProperties.darkColor,
                                   ),
                                 ),
                               ),
@@ -159,7 +159,7 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                           color:
-                                              ColorProperties.maroonTextColor,
+                                              ColorProperties.darkColor,
                                           width: 2)),
                                   suffixIcon: IconButton(
                                     onPressed: showPass,
@@ -168,7 +168,7 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                                   labelText: 'Password',
                                   labelStyle: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: ColorProperties.maroonTextColor,
+                                    color: ColorProperties.darkColor,
                                   ),
                                 ),
                               ),
@@ -196,12 +196,12 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                           color:
-                                              ColorProperties.maroonTextColor,
+                                              ColorProperties.darkColor,
                                           width: 2)),
                                   labelText: 'Confirm Password',
                                   labelStyle: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: ColorProperties.maroonTextColor,
+                                    color: ColorProperties.darkColor,
                                   ),
                                 ),
                               ),
@@ -225,7 +225,7 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                                 'REGISTER',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: ColorProperties.maroonTextColor,
+                                  color: ColorProperties.darkColor,
                                   fontSize: 20,
                                   fontStyle: FontStyle.normal,
                                   fontFamily: 'Inter',
@@ -260,7 +260,7 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                               child: Text(
                                 "Login",
                                 style: TextStyle(
-                                    color: ColorProperties.maroonTextColor,
+                                    color: ColorProperties.darkColor,
                                     fontSize: 30,
                                     fontWeight: FontWeight.bold),
                               ),

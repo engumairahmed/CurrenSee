@@ -36,16 +36,20 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   }
 
   Future<void> login() async {
-    var res = await loginTask(_emailController.text, _passwordController.text);
-    var res2 = res.keys.toList();
-   
-    if (res[res2[0]]!) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => bottomNavigationBar()));
-    } else {
-      setState(() {
-        loginError = res2[0];
-      });
+    if (_formKey.currentState!.validate()) {
+      var res =
+          await loginTask(_emailController.text, _passwordController.text);
+      var res2 = res.keys.toList();
+      print(res[res2[0]]);
+
+      if (res[res2[0]]!) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => bottomNavigationBar()));
+      } else {
+        setState(() {
+          loginError = res2[0];
+        });
+      }
     }
   }
 
@@ -67,9 +71,9 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                 style: GoogleFonts.badScript(
                   textStyle: TextStyle(
                       color: Colors.white,
-                      fontSize: 47,
+                      fontSize: 50,
                       fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.w900),
                 ),
               ),
               SizedBox(height: 10),
@@ -94,14 +98,23 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                       child: Column(children: [
                         TextFormField(
                           controller: _emailController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Email is required for login';
+                            }
+                            return null;
+                          },
                           decoration: InputDecoration(
-                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: ColorProperties.darkColor,width: 2)),
-                              labelText: 'Email',
-                              labelStyle: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: ColorProperties.darkColor,
-                              ),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: ColorProperties.darkColor,
+                                    width: 2)),
+                            labelText: 'Email',
+                            labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: ColorProperties.darkColor,
                             ),
+                          ),
                         ),
                         const SizedBox(
                           height: 25,
@@ -109,8 +122,17 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                         TextFormField(
                           obscureText: isPasswordObs,
                           controller: _passwordController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please insert a password';
+                            }
+                            return null;
+                          },
                           decoration: InputDecoration(
-                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: ColorProperties.darkColor,width: 2)),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: ColorProperties.darkColor,
+                                    width: 2)),
                             suffixIcon: IconButton(
                               onPressed: showPass,
                               icon: icon,
@@ -128,22 +150,33 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        ElevatedButton(
-                          onPressed: login,
-                          style: ElevatedButton.styleFrom(
-                            elevation: 10,
-                            backgroundColor: Colors.white,
-                            padding: EdgeInsets.symmetric(
-                                vertical: 20, horizontal: 50),
+                        Container(
+                          width: 200, // Adjust the width as needed
+                          height: 50, // Adjust the height as needed
+                          decoration: BoxDecoration(
+                            gradient: ColorProperties.mainColor,
+                            borderRadius: BorderRadius.circular(
+                                30), // Optional: Set border radius
                           ),
-                          child: Text(
-                            'LOGIN',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: ColorProperties.darkColor,
-                              fontSize: 20,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.bold,
+                          child: Material(
+                            color: Colors
+                                .transparent, // Set the material color to transparent
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(
+                                  30), // Optional: Set border radius
+                              onTap: login,
+                              child: Center(
+                                child: Text(
+                                  'LOGIN',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white, // Set text color
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),

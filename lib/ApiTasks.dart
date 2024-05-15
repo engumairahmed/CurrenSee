@@ -36,6 +36,8 @@ Future<Map<String,bool>> registerTask(String name, String email, String password
   }
 
   Future<Map<String,bool>> loginTask(String email, String pass) async{
+    print(email);
+    print(pass);
     try{
     Map<String, dynamic> data = {
       'email': email,

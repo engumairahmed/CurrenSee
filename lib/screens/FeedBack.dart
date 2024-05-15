@@ -52,7 +52,7 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: ColorProperties.gradi,
+          gradient: ColorProperties.mainColorCross,
         ),
         child: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(10, 60, 10, 0),
@@ -65,7 +65,7 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
                 ),
                 Text(
                   'Rate our application:',
-                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold,color: Colors.white),
                 ),
                 SizedBox(height: 8.0),
                 Container(
@@ -120,7 +120,7 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
                 SizedBox(height: 20.0),
                 Text(
                   'Do You Have Any Thoughts You Would Like to Share?',
-                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold,color: Colors.white),
                 ),
                 SizedBox(height: 15.0),
                 Padding(
@@ -129,13 +129,17 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
                     key: formkey,
                     child: Column(
                       children: [
-                        TextFormField(
-                          decoration: InputDecoration(
-                            hintText: 'We would love to hear your feedback',
-                            border: OutlineInputBorder(),
+                        Container(
+                          color: Colors.white,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              fillColor: Colors.white,
+                              hintText: 'We would love to hear your feedback',
+                              border: OutlineInputBorder(),
+                            ),
+                            maxLines: 6,
+                            onChanged: _onFeedbackChanged,
                           ),
-                          maxLines: 6,
-                          onChanged: _onFeedbackChanged,
                         ),
                         SizedBox(height: 16.0),
                         ElevatedButton(

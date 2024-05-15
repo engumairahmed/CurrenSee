@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:currensee/Preferences.dart';
 import 'package:currensee/screens/Converter.dart';
+import 'package:currensee/screens/CurrencyConvert.dart';
 import 'package:currensee/screens/FaqScreen.dart';
 import 'package:currensee/screens/FeedBack.dart';
 import 'package:currensee/screens/chart.dart';
@@ -36,7 +37,7 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
   List pages = const[
     HomeScreen(),
     ChartScreen(),
-    ConverterScreen(),
+    CurrencyConverterScreen(),
     FeedBackScreen(),
   ];
 

@@ -1,6 +1,6 @@
 //Login URL
-// String loginurl="https://currensee.000webhostapp.com/auth/login.php";
-String loginurl="http://localhost/phpapi/currensee/auth/login.php";
+String loginurl="https://currensee.000webhostapp.com/auth/login.php";
+// String loginurl="http://localhost/phpapi/currensee/auth/login.php";
 
 //Register URL
 String registerurl="https://currensee.000webhostapp.com/auth/register.php";
