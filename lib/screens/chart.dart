@@ -1,9 +1,8 @@
 import 'package:currensee/ApiTasks.dart';
 import 'package:currensee/models/HistoricalRates.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
-
 
 class ChartScreen extends StatefulWidget {
   const ChartScreen({Key? key}) : super(key: key);
@@ -13,69 +12,167 @@ class ChartScreen extends StatefulWidget {
 }
 
 class _ChartScreenState extends State<ChartScreen> {
+  List<HistoricalRates> chartData = [];
+
+  // Month mapping
+  final Map<int, String> months = {
+    01: 'January',
+    02: 'February',
+    03: 'March',
+    04: 'April',
+    05: 'May',
+    06: 'June',
+    07: 'July',
+    08: 'August',
+    09: 'September',
+    10: 'October',
+    11: 'November',
+    12: 'December',
+  };
+
+  List<int> years = [2023, 2024];
+  List<String> currencies = ['USD', 'EUR', 'CAD'];
+
+  int selectedMonth = 1;
+  int selectedYear = 2024;
+  String selectedCurrency = 'USD';
 
   late TooltipBehavior _tooltipBehavior;
 
-  // Future<void> historicalRate() async{
-  //   var res = await historicalRateTask(month, year,)
-  // }
+  Future<void> updateChartData(int month, int year, String currency) async {
+    var res = await historicalRateTask(month, year, currency);
+    setState(() {
+      chartData = res;
+    });
+  }
 
   @override
   void initState() {
-        _tooltipBehavior = TooltipBehavior(enable: true);
-        super.initState();
-      }
+    super.initState();
+    _tooltipBehavior = TooltipBehavior(enable: true);
+    updateChartData(selectedMonth, selectedYear, selectedCurrency);
+  }
 
-  final List<HistoricalRates> chartData = [
-    HistoricalRates(month: DateTime.parse('2024-02-01T23:59:59Z'),rate: 220),
-    HistoricalRates(month: DateTime.parse('2024-02-02T23:59:59Z'),rate: 225),
-    HistoricalRates(month: DateTime.parse('2024-02-03T23:59:59Z'),rate: 230),
-    HistoricalRates(month: DateTime.parse('2024-02-04T23:59:59Z'),rate: 240),
-    HistoricalRates(month: DateTime.parse('2024-02-05T23:59:59Z'),rate: 250),
-    HistoricalRates(month: DateTime.parse('2024-02-06T23:59:59Z'),rate: 290),
-    HistoricalRates(month: DateTime.parse('2024-02-07T23:59:59Z'),rate: 210),
-    HistoricalRates(month: DateTime.parse('2024-02-08T23:59:59Z'),rate: 215),
-    HistoricalRates(month: DateTime.parse('2024-02-09T23:59:59Z'),rate: 220),
-    HistoricalRates(month: DateTime.parse('2024-02-10T23:59:59Z'),rate: 190),
-    HistoricalRates(month: DateTime.parse('2024-02-11T23:59:59Z'),rate: 185),
-    HistoricalRates(month: DateTime.parse('2024-02-12T23:59:59Z'),rate: 200),
-    HistoricalRates(month: DateTime.parse('2024-02-13T23:59:59Z'),rate: 220),
-    HistoricalRates(month: DateTime.parse('2024-02-14T23:59:59Z'),rate: 260),
-    HistoricalRates(month: DateTime.parse('2024-02-15T23:59:59Z'),rate: 280),
-    HistoricalRates(month: DateTime.parse('2024-02-16T23:59:59Z'),rate: 285),
-    HistoricalRates(month: DateTime.parse('2024-02-17T23:59:59Z'),rate: 290),
-    HistoricalRates(month: DateTime.parse('2024-02-18T23:59:59Z'),rate: 310),
-  ];
-
-
- 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          height: MediaQuery.of(context).size.height/2.2,
-          width: MediaQuery.of(context).size.width/1.2,
-          child: SfCartesianChart(
-            primaryXAxis: DateTimeAxis(
-              intervalType: DateTimeIntervalType.days,
-              interval: 2,
+      body: Column(
+        children: [
+          Form(
+            child: Row(
+              children: [
+                // Dropdown for Month
+                DropdownButton<int>(
+                  value: selectedMonth,
+                  items: months.keys.map((int month) {
+                    return DropdownMenuItem<int>(
+                      value: month,
+                      child: Text(months[month]!),
+                    );
+                  }).toList(),
+                  onChanged: (int? newValue) {
+                    setState(() {
+                      selectedMonth = newValue!;
+                      updateChartData(
+                          selectedMonth, selectedYear, selectedCurrency);
+                    });
+                  },
+                ),
+                // Dropdown for Year
+                DropdownButton<int>(
+                  value: selectedYear,
+                  items: years.map((int year) {
+                    return DropdownMenuItem<int>(
+                      value: year,
+                      child: Text(year.toString()),
+                    );
+                  }).toList(),
+                  onChanged: (int? newValue) {
+                    setState(() {
+                      selectedYear = newValue!;
+                      updateChartData(
+                          selectedMonth, selectedYear, selectedCurrency);
+                    });
+                  },
+                ),
+                // Dropdown for Currency Code
+                DropdownButton<String>(
+                  value: selectedCurrency,
+                  items: currencies.map((String currency) {
+                    return DropdownMenuItem<String>(
+                      value: currency,
+                      child: Text(currency),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedCurrency = newValue!;
+                      updateChartData(
+                          selectedMonth, selectedYear, selectedCurrency);
+                    });
+                  },
+                ),
+              ],
             ),
-            tooltipBehavior: _tooltipBehavior,
-            series: <CartesianSeries>[
-              // Renders line chart
-              LineSeries<HistoricalRates, DateTime>(
-                dataSource: chartData,
-                xValueMapper: (HistoricalRates rates, _) => rates.month,
-                yValueMapper: (HistoricalRates rates, _) => rates.rate,
-                // Show data points as markers
-                markerSettings: MarkerSettings(isVisible: true),
-                enableTooltip: true,
-              ),
-            ],
           ),
-        ),
+          Expanded(
+            child: Row(
+              children: [
+                RotatedBox(
+                  quarterTurns: 3,
+                  child: Text(
+                    selectedCurrency,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: Center(
+                          child: Container(
+                            height: MediaQuery.of(context).size.height / 2.2,
+                            width: MediaQuery.of(context).size.width / 1.2,
+                            child: SfCartesianChart(
+                              primaryXAxis: DateTimeAxis(
+                                intervalType: DateTimeIntervalType.days,
+                                interval: 2,
+                              ),
+                              tooltipBehavior: _tooltipBehavior,
+                              series: <CartesianSeries>[
+                                // Renders line chart
+                                LineSeries<HistoricalRates, DateTime>(
+                                  dataSource: chartData,
+                                  xValueMapper: (HistoricalRates rates, _) => rates.month,
+                                  yValueMapper: (HistoricalRates rates, _) => rates.rate,
+                                  // Show data points as markers
+                                  markerSettings:
+                                      MarkerSettings(isVisible: true),
+                                  enableTooltip: true,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Transform.rotate(
+                        angle: -0.785398,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top:8.0),
+                          child: Text(
+                            months[selectedMonth]!,
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
-
 }

@@ -24,7 +24,6 @@ Future<Map<String,bool>> registerTask(String name, String email, String password
     var res = jsonDecode(response.body);
 
     if(response.statusCode==200){
-      print(response.body);
       return {res["message"]:true};
     }else{
       return {res["message"]:false};
@@ -51,7 +50,7 @@ Future<Map<String,bool>> registerTask(String name, String email, String password
     );
 
     var res = jsonDecode(response.body);
-
+    print(res["user"]["id"]);
     if(response.statusCode==200){
       setuser(res["user"]["id"]);
 
@@ -104,8 +103,6 @@ Future<Map<String,bool>> registerTask(String name, String email, String password
     var res = jsonDecode(response.body);
 
     if(response.statusCode==200){
-      print(res[0]);
-      print("Feedback Success");
       
     }else{
       print("Feedback Failure");
@@ -137,8 +134,6 @@ Future<Map<String,bool>> registerTask(String name, String email, String password
     var res = jsonDecode(response.body);
 
     if(response.statusCode==200){
-      // print(res);
-      // print("Conversion Success");
       return {"rate":res["exchange_rate"],"amount":res["converted_amount"]};
       
     }else{
@@ -153,6 +148,7 @@ Future<Map<String,bool>> registerTask(String name, String email, String password
   }
 
   Future<List<HistoricalRates>> historicalRateTask(int month, int year, String currency) async {
+    
     try{
       Map<String, dynamic> data = {
       'month': month,
@@ -172,12 +168,9 @@ Future<Map<String,bool>> registerTask(String name, String email, String password
     var res = result.map((e) => HistoricalRates.convertFromJson(e)).toList();
 
     if(response.statusCode==200){
-      print(res);
-      print("History Rates Success");
       return res;
       
     }else{
-      print("Feedback Failure");
       return [];
     }
     }

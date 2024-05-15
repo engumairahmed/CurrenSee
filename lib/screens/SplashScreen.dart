@@ -27,10 +27,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Add any initialization logic here, such as loading data or animations
-    // After a delay, navigate to the main screen
+
+    // checkUser() then navigate to appropriate screen
     checkUser().then((_) {
-    // checkUser() is completed
+
+    // After a delay, navigate to the main screen
     if (isLoggedIn) {
       Future.delayed(Duration(seconds: 3), () {
         Navigator.pushReplacement(

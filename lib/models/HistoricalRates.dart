@@ -7,8 +7,8 @@ class HistoricalRates{
 
   static HistoricalRates convertFromJson(Map<String, dynamic> json){
     return HistoricalRates(
-      month: json["month"],
-      rate: json["rates"]
+      month: DateTime.parse(json['LastUpdatedAt']),
+      rate: 1/double.parse(json['ExchangeRate']),
     );
   }
 }

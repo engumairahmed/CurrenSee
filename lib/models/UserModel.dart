@@ -14,10 +14,10 @@ class UserModel{
 
   static UserModel convertFromJson(Map<String, dynamic> json){
     return UserModel(
-      id: json["id"],
-      name: json["name"],
-      email: json["email"],
-      password: json["password"]
+      id: json["User_ID"],
+      name: json["Name"],
+      email: json["Email"],
+      password: json["Password"]
     );
   }
 }
