@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 
 class ColorProperties {
 
-  static Gradient mainColor =  const LinearGradient(colors: [
-    Color(0xFF101820),
-    Color(0xFFF2AA4C),
-  ]);
-
   static Color darkColor = const Color(0xFF101820);
   static Color lightColor = const Color(0xFFF2AA4C);
 
@@ -54,6 +49,29 @@ static Gradient cherryTomatoeGradientColor = const LinearGradient(colors: [
     Color(0xFF101820),
     Color(0xFFF2AA4C),
   ]);
+ 
+ static Gradient mainColor =  const LinearGradient(
+      colors: [    
+        Color(0xFF00203F),
+        Color(0xFFADEFD1),
+      ]
+  );
+
+  static Gradient mainColorInverted =  const LinearGradient(
+      colors: [    
+        Color(0xFF00203F),
+        Color(0xFFADEFD1),
+      ]
+  );
+  static Gradient mainColorCross =  const LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+      colors: [    
+        Color(0xFF00203F),
+        Color(0xFFADEFD1),
+      ]
+  );
+
 
   static Color purpleTextColor = const Color.fromARGB(255, 118, 51, 170);
   static Color maroonTextColor = const Color.fromARGB(255, 145, 11, 37);

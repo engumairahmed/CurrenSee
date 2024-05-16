@@ -52,7 +52,7 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: ColorProperties.gradi,
+          gradient: ColorProperties.mainColorCross,
         ),
         child: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(10, 60, 10, 0),

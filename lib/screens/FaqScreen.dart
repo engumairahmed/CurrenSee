@@ -1,3 +1,4 @@
+import 'package:currensee/app_properties.dart';
 import 'package:currensee/screens/FeedBack.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -78,13 +79,8 @@ class _FAQScreenState extends State<FAQScreen> {
      ),
       body: Container(
         height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 197, 64, 64),
-              Color.fromARGB(178, 0, 0, 0),
-            ],
-          ),
+         decoration: BoxDecoration(
+          gradient: ColorProperties.mainColor,
         ),
         child: SingleChildScrollView(
           child: Padding(

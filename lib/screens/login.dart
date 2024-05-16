@@ -56,7 +56,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
       child: Container(
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
-            gradient: ColorProperties.mainColor,
+            gradient: ColorProperties.blueGreenColor,
           ),
           child: SingleChildScrollView(
               child: Padding(

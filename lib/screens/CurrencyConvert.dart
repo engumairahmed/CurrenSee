@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:currensee/ApiTasks.dart';
 import 'package:currensee/app_properties.dart';
+import 'package:currensee/screens/AppBar.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyConverterScreen extends StatefulWidget {
@@ -57,13 +58,16 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 75, 75, 75),
-      appBar: AppBar(
-        title: Text(
-          'Currency Converter',
+    
+    
+      
+      body:
+      Container(
+        decoration: BoxDecoration(
+            gradient: ColorProperties.mainColor,
         ),
-      ),
-      body: Padding(
+ 
+      child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -247,24 +251,26 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
                     child: Text(
                       'CONVERT',
                       style: TextStyle(
-                          color: ColorProperties.secondColor,
+                          color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
                     style: ElevatedButton.styleFrom(
-                      elevation: 10,
+                      elevation: 20,
                       shadowColor: Colors.white,
                       padding:
                           EdgeInsets.symmetric(vertical: 25, horizontal: 165),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
                       ),
+                         backgroundColor:  Color(0xFF00203F), 
                     )),
               ),
             ),
           ],
         ),
       ),
+      )
     );
   }
 }
