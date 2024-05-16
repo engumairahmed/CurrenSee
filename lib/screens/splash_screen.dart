@@ -1,6 +1,6 @@
-import 'package:currensee/Preferences.dart';
+import 'package:currensee/preferences.dart';
 import 'package:currensee/app_properties.dart';
-import 'package:currensee/navigation.dart';
+import 'package:currensee/screens/navigation.dart';
 import 'package:currensee/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -57,8 +57,13 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorProperties.darkColor,
-      body: Center(
-        child: Lottie.asset('lib/images/logo.json'),
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: ColorProperties.mainColorCross,
+          ),
+        child: Center(
+          child: Lottie.asset('lib/images/logo.json'),
+        ),
       ),
     );
   }

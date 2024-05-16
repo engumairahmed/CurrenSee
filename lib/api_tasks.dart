@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:currensee/ApiEndpoints.dart';
-import 'package:currensee/Preferences.dart';
-import 'package:currensee/models/HistoricalRates.dart';
+import 'package:currensee/api_endpoints.dart';
+import 'package:currensee/preferences.dart';
+import 'package:currensee/models/historical_rates.dart';
 import 'package:http/http.dart' as http;
 
 Future<Map<String,bool>> registerTask(String name, String email, String password) async{

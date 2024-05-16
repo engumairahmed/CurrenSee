@@ -1,12 +1,15 @@
-import 'package:currensee/ApiTasks.dart';
-import 'package:currensee/Preferences.dart';
-import 'package:currensee/navigation.dart';
+import 'package:currensee/api_tasks.dart';
+import 'package:currensee/google_auth_service.dart';
+import 'package:currensee/preferences.dart';
 import 'package:currensee/screens/forgotPassword.dart';
 import 'package:currensee/screens/home.dart';
+import 'package:currensee/screens/navigation.dart';
 import 'package:currensee/screens/register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:currensee/app_properties.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPageScreen extends StatefulWidget {
   const LoginPageScreen({super.key});
@@ -16,6 +19,8 @@ class LoginPageScreen extends StatefulWidget {
 }
 
 class _LoginPageScreenState extends State<LoginPageScreen> {
+
+  
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -34,6 +39,23 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
       }
     });
   }
+
+  final AuthService _authService = AuthService();
+
+  void _signInWithGoogle() async {
+    User? user = await _authService.signInWithGoogle();
+    if (user != null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => bottomNavigationBar()), // Replace with your home screen
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Sign-in failed')),
+      );
+    }
+  }
+
 
   Future<void> login() async {
     if (_formKey.currentState!.validate()) {
@@ -241,7 +263,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                         Text(
                           '------------------or------------------',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: ColorProperties.darkColor,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),

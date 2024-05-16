@@ -21,14 +21,12 @@ class ColorProperties {
       colors: [    
         Color(0xFF00203F),
         Color(0xFFADEFD1),
-      ]
+      ],
   );
-  static Gradient mainColorCircular =  const LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
+  static Gradient mainColorCircular =  const RadialGradient(
       colors: [    
-        Color(0xFF00203F),
         Color(0xFFADEFD1),
+        Color(0xFF00203F),
       ]
   );
 

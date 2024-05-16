@@ -1,5 +1,5 @@
-import 'package:currensee/ApiTasks.dart';
-import 'package:currensee/navigation.dart';
+import 'package:currensee/api_tasks.dart';
+import 'package:currensee/screens/navigation.dart';
 import 'package:flutter/material.dart';
 
 class ConverterScreen extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:currensee/ApiTasks.dart';
-import 'package:currensee/models/UserModel.dart';
+import 'package:currensee/api_tasks.dart';
+import 'package:currensee/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> setuser(String id) async {
