@@ -1,12 +1,15 @@
-import 'package:currensee/ApiTasks.dart';
-import 'package:currensee/Preferences.dart';
-import 'package:currensee/navigation.dart';
+import 'package:currensee/api_tasks.dart';
+import 'package:currensee/google_auth_service.dart';
+import 'package:currensee/preferences.dart';
 import 'package:currensee/screens/forgotPassword.dart';
 import 'package:currensee/screens/home.dart';
+import 'package:currensee/screens/navigation.dart';
 import 'package:currensee/screens/register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:currensee/app_properties.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPageScreen extends StatefulWidget {
   const LoginPageScreen({super.key});
@@ -16,6 +19,8 @@ class LoginPageScreen extends StatefulWidget {
 }
 
 class _LoginPageScreenState extends State<LoginPageScreen> {
+
+  
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -35,17 +40,39 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
     });
   }
 
-  Future<void> login() async {
-    var res = await loginTask(_emailController.text, _passwordController.text);
-    var res2 = res.keys.toList();
-   
-    if (res[res2[0]]!) {
+  final AuthService _authService = AuthService();
+
+  void _signInWithGoogle() async {
+    User? user = await _authService.signInWithGoogle();
+    if (user != null) {
+      await setuser(user.uid);
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => bottomNavigationBar()));
+        context,
+        MaterialPageRoute(builder: (context) => bottomNavigationBar()), // Replace with your home screen
+      );
     } else {
-      setState(() {
-        loginError = res2[0];
-      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Sign-in failed')),
+      );
+    }
+  }
+
+
+  Future<void> login() async {
+    if (_formKey.currentState!.validate()) {
+      var res =
+          await loginTask(_emailController.text, _passwordController.text);
+      var res2 = res.keys.toList();
+      print(res[res2[0]]);
+
+      if (res[res2[0]]!) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => bottomNavigationBar()));
+      } else {
+        setState(() {
+          loginError = res2[0];
+        });
+      }
     }
   }
 
@@ -67,9 +94,9 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                 style: GoogleFonts.badScript(
                   textStyle: TextStyle(
                       color: Colors.white,
-                      fontSize: 47,
+                      fontSize: 50,
                       fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.w900),
                 ),
               ),
               SizedBox(height: 10),
@@ -94,14 +121,23 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                       child: Column(children: [
                         TextFormField(
                           controller: _emailController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Email is required for login';
+                            }
+                            return null;
+                          },
                           decoration: InputDecoration(
-                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: ColorProperties.darkColor,width: 2)),
-                              labelText: 'Email',
-                              labelStyle: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: ColorProperties.darkColor,
-                              ),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: ColorProperties.darkColor,
+                                    width: 2)),
+                            labelText: 'Email',
+                            labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: ColorProperties.darkColor,
                             ),
+                          ),
                         ),
                         const SizedBox(
                           height: 25,
@@ -109,8 +145,17 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                         TextFormField(
                           obscureText: isPasswordObs,
                           controller: _passwordController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please insert a password';
+                            }
+                            return null;
+                          },
                           decoration: InputDecoration(
-                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: ColorProperties.darkColor,width: 2)),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: ColorProperties.darkColor,
+                                    width: 2)),
                             suffixIcon: IconButton(
                               onPressed: showPass,
                               icon: icon,
@@ -128,22 +173,33 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        ElevatedButton(
-                          onPressed: login,
-                          style: ElevatedButton.styleFrom(
-                            elevation: 10,
-                            backgroundColor: Colors.white,
-                            padding: EdgeInsets.symmetric(
-                                vertical: 20, horizontal: 50),
+                        Container(
+                          width: 200, // Adjust the width as needed
+                          height: 50, // Adjust the height as needed
+                          decoration: BoxDecoration(
+                            gradient: ColorProperties.mainColor,
+                            borderRadius: BorderRadius.circular(
+                                30), // Optional: Set border radius
                           ),
-                          child: Text(
-                            'LOGIN',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: ColorProperties.darkColor,
-                              fontSize: 20,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.bold,
+                          child: Material(
+                            color: Colors
+                                .transparent, // Set the material color to transparent
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(
+                                  30), // Optional: Set border radius
+                              onTap: login,
+                              child: Center(
+                                child: Text(
+                                  'LOGIN',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white, // Set text color
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -208,7 +264,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                         Text(
                           '------------------or------------------',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: ColorProperties.darkColor,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
@@ -217,7 +273,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                           height: 10,
                         ),
                         ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: _signInWithGoogle,
                           style: ElevatedButton.styleFrom(
                             elevation: 10,
                             backgroundColor: Colors.white,

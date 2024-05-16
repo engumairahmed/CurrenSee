@@ -1,18 +1,26 @@
-import 'package:currensee/login.dart';
-import 'package:currensee/navigation.dart';
-import 'package:currensee/screens/AppBar.dart';
-import 'package:currensee/screens/Converter.dart';
-import 'package:currensee/screens/CurrencyConvert.dart';
-import 'package:currensee/screens/FaqScreen.dart';
-import 'package:currensee/screens/FeedBack.dart';
-import 'package:currensee/screens/SplashScreen.dart';
+
+
+import 'package:currensee/firebase_options.dart';
+import 'package:currensee/screens/navigation.dart';
+import 'package:currensee/screens/converter.dart';
+import 'package:currensee/screens/currency_converter.dart';
+import 'package:currensee/screens/faq_screen.dart';
+import 'package:currensee/screens/feedback.dart';
+import 'package:currensee/screens/splash_screen.dart';
+
 import 'package:currensee/screens/chart.dart';
 import 'package:currensee/screens/login.dart';
-import 'package:currensee/register.dart';
 import 'package:currensee/screens/register.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+     options: DefaultFirebaseOptions.android,
+  );
   runApp(const MyApp());
 }
 
@@ -23,7 +31,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: RoundAppBar(),
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

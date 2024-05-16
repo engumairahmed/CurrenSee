@@ -1,5 +1,5 @@
-import 'package:currensee/ApiTasks.dart';
-import 'package:currensee/models/HistoricalRates.dart';
+import 'package:currensee/api_tasks.dart';
+import 'package:currensee/models/historical_rates.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';

@@ -1,4 +1,4 @@
-import 'package:currensee/screens/SplashScreen.dart';
+import 'package:currensee/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {

@@ -1,5 +1,9 @@
+
 import 'package:currensee/app_properties.dart';
 import 'package:currensee/screens/FeedBack.dart';
+
+import 'package:currensee/screens/feedback.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -142,29 +146,6 @@ class _FAQScreenState extends State<FAQScreen> {
                   ),
                 ),
               ],
-            ),
-          ),
-        ),
-      ),
-      bottomNavigationBar: GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => FeedBackScreen()),
-          );
-        },
-        child: BottomAppBar(
-          color: Colors.pinkAccent,
-          height: 60,
-          child: Center(
-            child: Text(
-              "Feedback",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                fontStyle: FontStyle.italic,
-              ),
             ),
           ),
         ),

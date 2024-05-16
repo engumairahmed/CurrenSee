@@ -1,9 +1,10 @@
-import 'dart:html';
 
-import 'package:currensee/Preferences.dart';
-import 'package:currensee/screens/Converter.dart';
-import 'package:currensee/screens/FaqScreen.dart';
-import 'package:currensee/screens/FeedBack.dart';
+import 'package:currensee/app_properties.dart';
+import 'package:currensee/preferences.dart';
+import 'package:currensee/screens/converter.dart';
+import 'package:currensee/screens/currency_converter.dart';
+import 'package:currensee/screens/faq_screen.dart';
+import 'package:currensee/screens/feedback.dart';
 import 'package:currensee/screens/chart.dart';
 import 'package:currensee/screens/home.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
   List pages = const[
     HomeScreen(),
     ChartScreen(),
-    ConverterScreen(),
+    CurrencyConverterScreen(),
     FeedBackScreen(),
   ];
 
@@ -64,7 +65,9 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
           Container(
             width: double.infinity,
             padding: EdgeInsets.all(20),
-            color: Color(0xFF8D2D2D),
+            decoration: BoxDecoration(
+            gradient: ColorProperties.mainColor,
+          ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

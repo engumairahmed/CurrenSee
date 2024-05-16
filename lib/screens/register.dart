@@ -1,4 +1,4 @@
-import 'package:currensee/ApiTasks.dart';
+import 'package:currensee/api_tasks.dart';
 import 'package:currensee/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,13 +41,21 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
   Future<void> register() async {
     if (_formKey.currentState!.validate()) {
       var res = await registerTask(_nameController.text, _emailController.text,
-          _passwordController.text);
+          _passwordController.text,'null');
       var res2 = res.keys.toList();
       print(res);
+      print(res2);
+      
       if (res[res2[0]]!) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(res2[0])),
+        );
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const LoginPageScreen()));
       } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(res2[0])),
+        );        
         setState(() {
           emailError = res2[0];
         });
@@ -73,7 +81,7 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
         child: Container(
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
-            gradient: ColorProperties.gradientcolor,
+            gradient: ColorProperties.mainColor,
           ),
           child: SingleChildScrollView(
             child: Column(
@@ -122,12 +130,12 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                           color:
-                                              ColorProperties.maroonTextColor,
+                                              ColorProperties.darkColor,
                                           width: 2)),
                                   labelText: 'Name',
                                   labelStyle: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: ColorProperties.maroonTextColor,
+                                    color: ColorProperties.darkColor,
                                   ),
                                 ),
                               ),
@@ -140,12 +148,12 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                           color:
-                                              ColorProperties.maroonTextColor,
+                                              ColorProperties.darkColor,
                                           width: 2)),
                                   labelText: 'Email',
                                   labelStyle: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: ColorProperties.maroonTextColor,
+                                    color: ColorProperties.darkColor,
                                   ),
                                 ),
                               ),
@@ -155,11 +163,16 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                               TextFormField(
                                 obscureText: isPasswordObs,
                                 controller: _passwordController,
+                                 onChanged: (value) {
+                                  setState(() {
+                                    _password = value;
+                                  });
+                                },
                                 decoration: InputDecoration(
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                           color:
-                                              ColorProperties.maroonTextColor,
+                                              ColorProperties.darkColor,
                                           width: 2)),
                                   suffixIcon: IconButton(
                                     onPressed: showPass,
@@ -168,7 +181,7 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                                   labelText: 'Password',
                                   labelStyle: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: ColorProperties.maroonTextColor,
+                                    color: ColorProperties.darkColor,
                                   ),
                                 ),
                               ),
@@ -196,12 +209,12 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                           color:
-                                              ColorProperties.maroonTextColor,
+                                              ColorProperties.darkColor,
                                           width: 2)),
                                   labelText: 'Confirm Password',
                                   labelStyle: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: ColorProperties.maroonTextColor,
+                                    color: ColorProperties.darkColor,
                                   ),
                                 ),
                               ),
@@ -214,7 +227,7 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                               height: 40,
                             ),
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: register,
                               style: ElevatedButton.styleFrom(
                                 elevation: 10,
                                 backgroundColor: Colors.white,
@@ -225,7 +238,7 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                                 'REGISTER',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: ColorProperties.maroonTextColor,
+                                  color: ColorProperties.darkColor,
                                   fontSize: 20,
                                   fontStyle: FontStyle.normal,
                                   fontFamily: 'Inter',
@@ -260,7 +273,7 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                               child: Text(
                                 "Login",
                                 style: TextStyle(
-                                    color: ColorProperties.maroonTextColor,
+                                    color: ColorProperties.darkColor,
                                     fontSize: 30,
                                     fontWeight: FontWeight.bold),
                               ),

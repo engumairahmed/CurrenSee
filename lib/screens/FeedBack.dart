@@ -1,8 +1,8 @@
-import 'package:currensee/ApiTasks.dart';
+import 'package:currensee/api_tasks.dart';
 import 'package:currensee/Preferences.dart';
 import 'package:currensee/app_properties.dart';
-import 'package:currensee/navigation.dart';
-import 'package:currensee/screens/FaqScreen.dart';
+import 'package:currensee/screens/navigation.dart';
+import 'package:currensee/screens/faq_screen.dart';
 import 'package:flutter/material.dart';
 
 class FeedBackScreen extends StatefulWidget {
@@ -65,7 +65,7 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
                 ),
                 Text(
                   'Rate our application:',
-                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold,color: Colors.white),
                 ),
                 SizedBox(height: 8.0),
                 Container(
@@ -120,7 +120,7 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
                 SizedBox(height: 20.0),
                 Text(
                   'Do You Have Any Thoughts You Would Like to Share?',
-                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold,color: Colors.white),
                 ),
                 SizedBox(height: 15.0),
                 Padding(
@@ -129,13 +129,17 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
                     key: formkey,
                     child: Column(
                       children: [
-                        TextFormField(
-                          decoration: InputDecoration(
-                            hintText: 'We would love to hear your feedback',
-                            border: OutlineInputBorder(),
+                        Container(
+                          color: Colors.white,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              fillColor: Colors.white,
+                              hintText: 'We would love to hear your feedback',
+                              border: OutlineInputBorder(),
+                            ),
+                            maxLines: 6,
+                            onChanged: _onFeedbackChanged,
                           ),
-                          maxLines: 6,
-                          onChanged: _onFeedbackChanged,
                         ),
                         SizedBox(height: 16.0),
                         ElevatedButton(
