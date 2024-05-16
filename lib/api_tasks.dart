@@ -5,16 +5,19 @@ import 'package:currensee/preferences.dart';
 import 'package:currensee/models/historical_rates.dart';
 import 'package:http/http.dart' as http;
 
-Future<Map<String,bool>> registerTask(String name, String email, String password) async{
+Future<Map<String,bool>> registerTask(String? name, String? email, String? password, String? uid) async{
 
     try{
     Map<String, dynamic> data = {
       'name': name,
       'email': email,
       'password':password,
+      'uid': uid
     };
 
     String body = jsonEncode(data);
+
+    print(body);
 
     http.Response response = await http.post(
       Uri.parse(registerurl),
@@ -23,21 +26,20 @@ Future<Map<String,bool>> registerTask(String name, String email, String password
 
     var res = jsonDecode(response.body);
 
+    print(res);
+
     if(response.statusCode==200){
       return {res["message"]:true};
     }else{
       return {res["message"]:false};
     }
     }
-    catch(error){
-      
+    catch(error){      
         return {"Server / Api not reachable":false};
     }
   }
 
   Future<Map<String,bool>> loginTask(String email, String pass) async{
-    print(email);
-    print(pass);
     try{
     Map<String, dynamic> data = {
       'email': email,
@@ -79,6 +81,25 @@ Future<Map<String,bool>> registerTask(String name, String email, String password
       return response.body;
     }else{
       return null;
+    }
+    }
+    catch(error){
+        print(error.toString());
+        return null;
+    }
+  }
+
+    Future<bool?> uidCheckTask(String uid) async{
+    try{
+
+    http.Response response = await http.post(
+      Uri.parse(uidCheckUrl+uid),
+    );
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return data['exists'];
+    } else {
+      return false;
     }
     }
     catch(error){

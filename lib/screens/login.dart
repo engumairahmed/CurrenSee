@@ -45,6 +45,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   void _signInWithGoogle() async {
     User? user = await _authService.signInWithGoogle();
     if (user != null) {
+      await setuser(user.uid);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => bottomNavigationBar()), // Replace with your home screen
@@ -272,7 +273,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                           height: 10,
                         ),
                         ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: _signInWithGoogle,
                           style: ElevatedButton.styleFrom(
                             elevation: 10,
                             backgroundColor: Colors.white,

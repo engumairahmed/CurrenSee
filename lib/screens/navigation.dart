@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:currensee/app_properties.dart';
 import 'package:currensee/preferences.dart';

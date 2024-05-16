@@ -1,3 +1,4 @@
+import 'package:currensee/firebase_options.dart';
 import 'package:currensee/screens/navigation.dart';
 import 'package:currensee/screens/converter.dart';
 import 'package:currensee/screens/currency_converter.dart';
@@ -14,8 +15,10 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MyApp());
+  await Firebase.initializeApp(
+     options: DefaultFirebaseOptions.android,
+  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

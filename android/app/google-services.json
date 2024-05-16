@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "705025460700",
+    "project_id": "currensee-e425e",
+    "storage_bucket": "currensee-e425e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705025460700:android:c9909069a5e046c6452719",
+        "android_client_info": {
+          "package_name": "com.example.currensee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "705025460700-ci2ant79kt00pbjne26pvj739pi38432.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.currensee",
+            "certificate_hash": "869a04ab1ddd24c1535a688ab868bc0e073b03f6"
+          }
+        },
+        {
+          "client_id": "705025460700-119v3rt7d76d5o1faj0rvhpdik2k57jv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLuUJMmmCFEPKidZ9vAXlSbcsECbVgGPw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "705025460700-119v3rt7d76d5o1faj0rvhpdik2k57jv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "705025460700-3chcus9m45qpovq0827abbcgq2oouhea.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.currensee"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

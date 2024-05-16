@@ -41,13 +41,21 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
   Future<void> register() async {
     if (_formKey.currentState!.validate()) {
       var res = await registerTask(_nameController.text, _emailController.text,
-          _passwordController.text);
+          _passwordController.text,'null');
       var res2 = res.keys.toList();
       print(res);
+      print(res2);
+      
       if (res[res2[0]]!) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(res2[0])),
+        );
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const LoginPageScreen()));
       } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(res2[0])),
+        );        
         setState(() {
           emailError = res2[0];
         });
@@ -155,6 +163,11 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                               TextFormField(
                                 obscureText: isPasswordObs,
                                 controller: _passwordController,
+                                 onChanged: (value) {
+                                  setState(() {
+                                    _password = value;
+                                  });
+                                },
                                 decoration: InputDecoration(
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
@@ -214,7 +227,7 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                               height: 40,
                             ),
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: register,
                               style: ElevatedButton.styleFrom(
                                 elevation: 10,
                                 backgroundColor: Colors.white,
