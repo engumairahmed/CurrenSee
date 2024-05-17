@@ -1,6 +1,8 @@
 
 import 'package:currensee/app_properties.dart';
+import 'package:currensee/screens/AppBar.dart';
 import 'package:currensee/screens/FeedBack.dart';
+import 'package:currensee/screens/drawer.dart';
 
 import 'package:currensee/screens/feedback.dart';
 
@@ -78,9 +80,11 @@ class _FAQScreenState extends State<FAQScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     appBar: AppBar(
-       title: Text("Feedback Screen"),
-     ),
+    //  appBar: AppBar(
+    //    title: Text("Feedback Screen"),
+    //  ),
+    appBar: RoundAppBar(pageTitle: 'FAQs',),
+    drawer: CustomDrawer(),
       body: Container(
         height: MediaQuery.of(context).size.height,
          decoration: BoxDecoration(
@@ -119,7 +123,7 @@ class _FAQScreenState extends State<FAQScreen> {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                              color: Color(0xFFC54040),
+                              color: Color.fromARGB(255, 4, 63, 112),
                           ),
                         ),
                         children: [

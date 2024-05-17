@@ -1,8 +1,8 @@
-import 'package:currensee/attachments/Converter.dart';
-import 'package:currensee/screens/CurrencyConvert.dart';
+// import 'package:currensee/attachments/Converter.dart';
+import 'package:currensee/screens/currency_converter.dart';
 import 'package:currensee/screens/home.dart';
 import 'package:flutter/material.dart';
-import 'FaqScreen.dart';
+import 'package:currensee/screens/faq_screen.dart';
 import 'FeedBack.dart';
 // import 'history.dart';
 // import 'hom1.dart';

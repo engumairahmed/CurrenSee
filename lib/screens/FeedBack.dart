@@ -1,6 +1,7 @@
 import 'package:currensee/api_tasks.dart';
 import 'package:currensee/Preferences.dart';
 import 'package:currensee/app_properties.dart';
+import 'package:currensee/screens/AppBar.dart';
 import 'package:currensee/screens/navigation.dart';
 import 'package:currensee/screens/faq_screen.dart';
 import 'package:flutter/material.dart';
@@ -39,15 +40,14 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
     if (formkey.currentState!.validate()) {
       // Send feedback data to your server or database
       // var UserId=await getUser();
-      var res = await feedbackTask(_feedback, _rating);
-      print('Rating: $_rating');
-      print('Feedback: $_feedback');
+       await feedbackTask(_feedback, _rating);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: RoundAppBar(pageTitle: 'Feedback'),
       body: Container(
         height: double.infinity,
         width: double.infinity,

@@ -1,13 +1,14 @@
 //Login URL
-String loginurl="https://currensee.000webhostapp.com/auth/login.php";
-// String loginurl="http://localhost/phpapi/currensee/auth/login.php";
+// String loginurl="https://currensee.000webhostapp.com/auth/login.php";
+String loginurl="http://localhost/phpapi/currensee/auth/login.php";
 
 //Register URL
 // String registerurl="https://currensee.000webhostapp.com/auth/register.php";
 String registerurl="http://localhost/phpapi/currensee/auth/register.php";
 
 //User Profile URL
-String userDataUrl="https://currensee.000webhostapp.com/auth/user.php?id=";
+// String userDataUrl="https://currensee.000webhostapp.com/auth/user.php?id=";
+String userDataUrl="http://localhost/phpapi/currensee/auth/user.php?id=";
 
 //Firbase Profile UID verification URL
 // String uidCheckUrl="https://currensee.000webhostapp.com/auth/uid.php?id=";

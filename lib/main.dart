@@ -1,6 +1,7 @@
 
 
 import 'package:currensee/firebase_options.dart';
+import 'package:currensee/screens/AppBar.dart';
 import 'package:currensee/screens/navigation.dart';
 import 'package:currensee/screens/converter.dart';
 import 'package:currensee/screens/currency_converter.dart';
@@ -27,7 +28,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

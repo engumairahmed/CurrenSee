@@ -220,3 +220,4 @@ Future<List<String>> fetchCurrencyCodes() async {
     return [];
   }
 }
+

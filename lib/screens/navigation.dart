@@ -1,6 +1,7 @@
 
 import 'package:currensee/app_properties.dart';
 import 'package:currensee/preferences.dart';
+import 'package:currensee/screens/AppBar.dart';
 import 'package:currensee/screens/converter.dart';
 import 'package:currensee/screens/currency_converter.dart';
 import 'package:currensee/screens/faq_screen.dart';
@@ -8,6 +9,7 @@ import 'package:currensee/screens/feedback.dart';
 import 'package:currensee/screens/chart.dart';
 import 'package:currensee/screens/home.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class bottomNavigationBar extends StatefulWidget {
   const bottomNavigationBar({super.key});
@@ -24,9 +26,6 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
   Future<void> showUserProfile() async {
     var user = await getUserData();
     var id = await getUser();
-    print(id);
-    print(user.name);
-    print(user.email);
     setState(() { 
     userName=user.name;
     userEmail=user.email;
@@ -41,6 +40,8 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
     FeedBackScreen(),
   ];
 
+  Size get preferredSize => Size.fromHeight(110);
+
   @override
   void initState() {
     // TODO: implement initState
@@ -50,15 +51,7 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-         appBar: AppBar(
-        title: Text(
-          "App currency Home",
-          style: TextStyle(color: Color.fromARGB(255, 95, 0, 107)),
-        ),
-        centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
-      ),
+    return  Scaffold(         
       drawer: Drawer(
       child: Column(
         children: [
@@ -156,19 +149,19 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
         ],
       ),
     ),
-      backgroundColor: Colors.purple,
+      backgroundColor: ColorProperties.appBarColor,
 bottomNavigationBar: Container(
   margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
   decoration: BoxDecoration(boxShadow: [
     BoxShadow(
-      color: Colors.black.withOpacity(0.3),
+      color: ColorProperties.lightColor,
     )
   ]),
   child: ClipRRect(
     borderRadius: BorderRadius.circular(10),
     child: BottomNavigationBar(
-      backgroundColor: Colors.white,
-      selectedItemColor: Colors.purple,
+      backgroundColor: ColorProperties.darkColor,
+      selectedItemColor: ColorProperties.darkColor,
       unselectedItemColor: Colors.black,
       currentIndex: myCurrentIndex,
       onTap: (index){
@@ -186,6 +179,8 @@ bottomNavigationBar: Container(
     ),
     ),
     body: pages[myCurrentIndex],
+    
+
   );
   }
 }

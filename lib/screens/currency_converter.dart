@@ -57,10 +57,8 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-    
-    
-      
+    return Scaffold(  
+      appBar: RoundAppBar(pageTitle: 'Convert'),
       body:
       Container(
         decoration: BoxDecoration(
@@ -213,7 +211,7 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
                       ),
                     ),
                     Text(
-                      _rate.text,
+                      _converted.text,
                       style: TextStyle(
                         color: ColorProperties.firstColor,
                         fontSize: 36.0,
@@ -229,7 +227,7 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
                       ),
                     ),
                     Text(
-                      _converted.text,
+                      _rate.text,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.0,
@@ -259,9 +257,9 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
                       elevation: 20,
                       shadowColor: Colors.white,
                       padding:
-                          EdgeInsets.symmetric(vertical: 25, horizontal: 165),
+                          EdgeInsets.symmetric(vertical: 25, horizontal: 80),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(30.0),
                       ),
                          backgroundColor:  Color(0xFF00203F), 
                     )),
