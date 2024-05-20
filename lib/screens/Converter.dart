@@ -1,5 +1,6 @@
 import 'package:currensee/api_tasks.dart';
-import 'package:currensee/screens/navigation.dart';
+import 'package:currensee/preferences.dart';
+import 'package:currensee/screens/bottom_navigation.dart';
 import 'package:flutter/material.dart';
 
 class ConverterScreen extends StatefulWidget {
@@ -18,7 +19,8 @@ class _ConverterScreenState extends State<ConverterScreen> {
   TextEditingController _converted = TextEditingController();
 
   Future<void> convert() async{
-    var res = await conversionTask(_baseCurrency.text,_targertCurrency.text,_amount.text);
+    var id= await getUser().toString();
+    var res = await conversionTask(_baseCurrency.text,_targertCurrency.text,_amount.text,id);
     // print(res);
     setState(() {
       _rate.text=res["rate"].toString();

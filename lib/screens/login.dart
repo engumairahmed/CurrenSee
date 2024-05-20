@@ -3,7 +3,7 @@ import 'package:currensee/google_auth_service.dart';
 import 'package:currensee/preferences.dart';
 import 'package:currensee/screens/forgotPassword.dart';
 import 'package:currensee/screens/home.dart';
-import 'package:currensee/screens/navigation.dart';
+import 'package:currensee/screens/bottom_navigation.dart';
 import 'package:currensee/screens/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +20,14 @@ class LoginPageScreen extends StatefulWidget {
 
 class _LoginPageScreenState extends State<LoginPageScreen> {
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    logOut();
+    print('Login Screen Launched');
+  }
+
   
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
@@ -28,6 +36,12 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
 
   String loginError = "";
   Icon icon = Icon(Icons.visibility, color: Colors.grey);
+
+  AuthService _authService = AuthService(); 
+
+  Future<void> logOut() async {
+    await _authService.signOut();
+  }
 
   void showPass() {
     setState(() {
@@ -40,7 +54,6 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
     });
   }
 
-  final AuthService _authService = AuthService();
 
   void _signInWithGoogle() async {
     User? user = await _authService.signInWithGoogle();
@@ -60,6 +73,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
 
   Future<void> login() async {
     if (_formKey.currentState!.validate()) {
+      print(_emailController.text.trim());
       var res =
           await loginTask(_emailController.text, _passwordController.text);
       var res2 = res.keys.toList();

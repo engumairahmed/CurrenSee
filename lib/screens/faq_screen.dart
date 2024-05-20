@@ -83,7 +83,7 @@ class _FAQScreenState extends State<FAQScreen> {
     //  appBar: AppBar(
     //    title: Text("Feedback Screen"),
     //  ),
-    appBar: RoundAppBar(pageTitle: 'FAQs',),
+    // appBar: RoundAppBar(pageTitle: 'FAQs',),
     drawer: CustomDrawer(),
       body: Container(
         height: MediaQuery.of(context).size.height,

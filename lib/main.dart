@@ -2,11 +2,13 @@
 
 import 'package:currensee/firebase_options.dart';
 import 'package:currensee/screens/AppBar.dart';
-import 'package:currensee/screens/navigation.dart';
+import 'package:currensee/screens/conversion_history.dart';
+import 'package:currensee/screens/bottom_navigation.dart';
 import 'package:currensee/screens/converter.dart';
 import 'package:currensee/screens/currency_converter.dart';
 import 'package:currensee/screens/faq_screen.dart';
 import 'package:currensee/screens/feedback.dart';
+import 'package:currensee/screens/home.dart';
 import 'package:currensee/screens/splash_screen.dart';
 
 import 'package:currensee/screens/chart.dart';

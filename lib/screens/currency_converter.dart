@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:js_interop';
 import 'dart:ui';
 
 import 'package:currensee/api_tasks.dart';
 import 'package:currensee/app_properties.dart';
+import 'package:currensee/preferences.dart';
 import 'package:currensee/screens/AppBar.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +17,7 @@ class CurrencyConverterScreen extends StatefulWidget {
 }
 
 class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
+
   TextEditingController _amount = TextEditingController();
   TextEditingController _rate = TextEditingController();
   TextEditingController _converted = TextEditingController();
@@ -28,6 +31,7 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
   void initState() {
     super.initState();
     _fetchCurrencyCodes();
+    print('Currency Converter launched');
   }
 
   Future<void> _fetchCurrencyCodes() async {
@@ -43,9 +47,12 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
   }
 
   Future<void> _convert() async {
+    
     try {
+      var id = await getUser();
       var res =
-          await conversionTask(_baseCurrency, _targetCurrency, _amount.text);
+          await conversionTask(_baseCurrency, _targetCurrency, _amount.text,id!);
+          print(res);
       setState(() {
         _rate.text = res["rate"].toString();
         _converted.text = res["amount"].toString();
@@ -58,11 +65,11 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(  
-      appBar: RoundAppBar(pageTitle: 'Convert'),
+      appBar: RoundAppBar(pageTitle: 'Convert',buildContext: context,),
       body:
       Container(
         decoration: BoxDecoration(
-            gradient: ColorProperties.mainColor,
+            // gradient: ColorProperties.mainColor,
         ),
  
       child: Padding(
@@ -89,7 +96,7 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
                   labelStyle: TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 18.0,
-                      color: ColorProperties.secondColor),
+                      color: ColorProperties.darkColor),
                 ),
                 style: TextStyle(
                   color: Colors.black,

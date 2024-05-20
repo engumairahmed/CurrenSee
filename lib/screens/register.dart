@@ -40,11 +40,9 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
 
   Future<void> register() async {
     if (_formKey.currentState!.validate()) {
-      var res = await registerTask(_nameController.text, _emailController.text,
+      var res = await registerTask(_nameController.text, _emailController.text.trim(),
           _passwordController.text,'null');
       var res2 = res.keys.toList();
-      print(res);
-      print(res2);
       
       if (res[res2[0]]!) {
         ScaffoldMessenger.of(context).showSnackBar(

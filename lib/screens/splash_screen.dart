@@ -1,7 +1,8 @@
 import 'package:currensee/preferences.dart';
 import 'package:currensee/app_properties.dart';
-import 'package:currensee/screens/navigation.dart';
+import 'package:currensee/screens/bottom_navigation.dart';
 import 'package:currensee/screens/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -14,14 +15,15 @@ class _SplashScreenState extends State<SplashScreen> {
   bool isLoggedIn=false;
 
   Future<void> checkUser() async{
+    User? user = FirebaseAuth.instance.currentUser;
     var id = await getUser();
-    if(id == null){
+    if(id != null || user != null){
       setState(() {        
-      isLoggedIn = false;
+      isLoggedIn = true;
       });
     } else{
       setState(() {
-      isLoggedIn = true;        
+      isLoggedIn = false;        
       });
     }
   }
@@ -29,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-
+    print("Splash Screen");
     // checkUser() then navigate to appropriate screen
     checkUser().then((_) {
 
