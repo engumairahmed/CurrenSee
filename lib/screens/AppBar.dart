@@ -1,3 +1,4 @@
+import 'package:currensee/app_properties.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -5,7 +6,8 @@ import 'drawer.dart';
 
 class RoundAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String pageTitle;
-  const RoundAppBar({Key? key, required this.pageTitle}) : super(key: key);
+  final BuildContext buildContext;
+  const RoundAppBar({Key? key, required this.pageTitle, required this.buildContext}) : super(key: key);
 
   @override
   Size get preferredSize => Size.fromHeight(110);
@@ -25,7 +27,7 @@ class RoundAppBar extends StatelessWidget implements PreferredSizeWidget {
               mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(8,0,10,4),
+                padding: const EdgeInsets.fromLTRB(0,0,8,4),
                 child: Text(                
                   pageTitle,
                   style: GoogleFonts.aleo(
@@ -51,20 +53,19 @@ class RoundAppBar extends StatelessWidget implements PreferredSizeWidget {
                   bottomLeft: Radius.circular(15),
                   bottomRight: Radius.circular(15),
                 ),
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromARGB(218, 0, 228, 186),
-                    Color.fromARGB(218, 0, 228, 186),
-                  ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ),
+                gradient: ColorProperties.mainColor
               ),
             ),
           ),
+          leading: IconButton(icon: Icon(Icons.menu,color: Colors.white,),
+          onPressed: (){
+            // globalKey.currentState!.openDrawer();
+            Scaffold.of(buildContext).openDrawer();
+            print('Button pressed');
+          }
+          ),
         ),
       ),
-      drawer: CustomDrawer(),
     );
   }
 }

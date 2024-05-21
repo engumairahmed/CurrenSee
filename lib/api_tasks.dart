@@ -54,7 +54,6 @@ Future<Map<String,bool>> registerTask(String? name, String? email, String? passw
     );
 
     var res = jsonDecode(response.body);
-    print(res["user"]["id"]);
     if(response.statusCode==200){
       setuser(res["user"]["id"]);
 
@@ -138,12 +137,13 @@ Future<Map<String,bool>> registerTask(String? name, String? email, String? passw
   }
 
 
-  Future<Map<String,dynamic>> conversionTask(String baseCurrency,String targetCurrency, String amount) async{
+  Future<Map<String,dynamic>> conversionTask(String baseCurrency,String targetCurrency, String amount, String id) async{
     try{
+      
       Map<String, dynamic> data = {
       'base': baseCurrency,
       'target':targetCurrency,
-      'id':4,
+      'id':id,
       'amount':amount
     };
 
@@ -221,3 +221,21 @@ Future<List<String>> fetchCurrencyCodes() async {
   }
 }
 
+Future<Map<String, dynamic>> conversionHistoryTask(String id) async {
+try{
+
+    http.Response response = await http.post(
+      Uri.parse(conversionHistoryURL+id),
+    );
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return {'base':data['Base_Currency'],'target':data['Target_Currency'],'amount':data['Amoutn_Converted'],'converted_amount':data['Converted_Amount'],'rate':data['Exchange_Rate'],'date':data['Base_Currency'],};
+    } else {
+      return {'message':'No Records Found'};
+    }
+    }
+    catch(error){
+        print(error.toString());
+      return {'ApiFailed':true};
+  }
+}

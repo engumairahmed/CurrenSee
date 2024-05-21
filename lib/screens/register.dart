@@ -40,6 +40,7 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
 
   // Function to handle registration
   Future<void> register() async {
+
     if (_formKey.currentState!.validate()) { // Validate form
       var res = await registerTask(
           _nameController.text, _emailController.text, _passwordController.text, 'null'); // Perform registration task
@@ -48,6 +49,7 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
       print(res2);
 
       if (res[res2[0]]!) { // If registration is successful
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(res2[0])), // Show success message
         );

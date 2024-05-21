@@ -76,11 +76,10 @@ class _FAQScreenState extends State<FAQScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text("Feedback Screen"),
-      // ),
-      appBar: RoundAppBar(pageTitle: 'FAQs'), // Custom app bar with title 'FAQs'
+    
+      appBar: RoundAppBar(pageTitle: 'FAQs', buildContext: context,), // Custom app bar with title 'FAQs'
       drawer: CustomDrawer(), // Custom navigation drawer
+
       body: Container(
         height: MediaQuery.of(context).size.height, // Full screen height
         decoration: BoxDecoration(

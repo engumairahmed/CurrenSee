@@ -1,9 +1,10 @@
+
 import 'package:currensee/api_tasks.dart'; // Importing API tasks
 import 'package:currensee/google_auth_service.dart'; // Importing Google authentication service
 import 'package:currensee/preferences.dart'; // Importing preferences for user data
+import 'package:currensee/screens/bottom_navigation.dart';// Importing navigation screen
 import 'package:currensee/screens/forgotPassword.dart'; // Importing forgot password screen
 import 'package:currensee/screens/home.dart'; // Importing home screen
-import 'package:currensee/screens/navigation.dart'; // Importing navigation screen
 import 'package:currensee/screens/register.dart'; // Importing register screen
 import 'package:firebase_auth/firebase_auth.dart'; // Importing Firebase Auth
 import 'package:flutter/material.dart'; // Importing Flutter material package
@@ -15,62 +16,76 @@ class LoginPageScreen extends StatefulWidget {
   const LoginPageScreen({super.key});
 
   @override
-  State<LoginPageScreen> createState() => _LoginPageScreenState(); // Creating state for LoginPageScreen
+  State<LoginPageScreen> createState() => _LoginPageScreenState();
 }
 
 class _LoginPageScreenState extends State<LoginPageScreen> {
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // Key for the form
-  final TextEditingController _emailController = TextEditingController(); // Controller for email input
-  final TextEditingController _passwordController = TextEditingController(); // Controller for password input
-  bool isPasswordObs = true; // Variable to toggle password visibility
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    logOut();
+    print('Login Screen Launched');
+  }
 
-  String loginError = ""; // Variable to store login error message
-  Icon icon = Icon(Icons.visibility, color: Colors.grey); // Icon for password visibility toggle
+  
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool isPasswordObs = true;
 
-  // Function to show/hide password
+  String loginError = "";
+  Icon icon = Icon(Icons.visibility, color: Colors.grey);
+
+  AuthService _authService = AuthService(); 
+
+  Future<void> logOut() async {
+    await _authService.signOut();
+  }
+
   void showPass() {
     setState(() {
       isPasswordObs = !isPasswordObs;
       if (isPasswordObs) {
-        icon = Icon(Icons.visibility, color: Colors.grey); // Show password
+        icon = Icon(Icons.visibility, color: Colors.grey);
       } else {
-        icon = Icon(Icons.visibility_off, color: Colors.grey); // Hide password
+        icon = Icon(Icons.visibility_off, color: Colors.grey);
       }
     });
   }
 
-  final AuthService _authService = AuthService(); // Instance of AuthService
 
-  // Function to sign in with Google
   void _signInWithGoogle() async {
     User? user = await _authService.signInWithGoogle();
     if (user != null) {
-      await setuser(user.uid); // Set user data in preferences
+      await setuser(user.uid);
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => bottomNavigationBar()), // Navigate to bottomNavigationBar
+        MaterialPageRoute(builder: (context) => bottomNavigationBar()), // Replace with your home screen
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Sign-in failed')), // Show error message
+        SnackBar(content: Text('Sign-in failed')),
       );
     }
   }
 
-  // Function to handle login
+
   Future<void> login() async {
-    if (_formKey.currentState!.validate()) { // Validate form
-      var res = await loginTask(_emailController.text, _passwordController.text); // Perform login task
+    if (_formKey.currentState!.validate()) {
+      print(_emailController.text.trim());
+      var res =
+          await loginTask(_emailController.text, _passwordController.text);
       var res2 = res.keys.toList();
       print(res[res2[0]]);
 
-      if (res[res2[0]]!) { // If login is successful
+      if (res[res2[0]]!) {
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => bottomNavigationBar())); // Navigate to bottomNavigationBar
+            MaterialPageRoute(builder: (context) => bottomNavigationBar()));
       } else {
         setState(() {
-          loginError = res2[0]; // Set login error message
+          loginError = res2[0];
         });
       }
     }
@@ -83,7 +98,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
       child: Container(
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
-            gradient: ColorProperties.blueGreenColor, // Applying gradient background
+            gradient: ColorProperties.blueGreenColor,
           ),
           child: SingleChildScrollView(
               child: Padding(
@@ -96,7 +111,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                       color: Colors.white,
                       fontSize: 50,
                       fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w900), // Styling text
+                      fontWeight: FontWeight.w900),
                 ),
               ),
               SizedBox(height: 10),
@@ -109,21 +124,21 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                   height: MediaQuery.sizeOf(context).height,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40), // Top left corner radius
-                      topRight: Radius.circular(40), // Top right corner radius
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
                     ),
-                    color: Colors.white, // Background color
+                    color: Colors.white,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
                     child: Form(
-                      key: _formKey, // Form key
+                      key: _formKey,
                       child: Column(children: [
                         TextFormField(
                           controller: _emailController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Email is required for login'; // Email validation
+                              return 'Email is required for login';
                             }
                             return null;
                           },
@@ -131,11 +146,11 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                     color: ColorProperties.darkColor,
-                                    width: 2)), // Underline border styling
+                                    width: 2)),
                             labelText: 'Email',
                             labelStyle: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: ColorProperties.darkColor, // Label text color
+                              color: ColorProperties.darkColor,
                             ),
                           ),
                         ),
@@ -147,7 +162,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                           controller: _passwordController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please insert a password'; // Password validation
+                              return 'Please insert a password';
                             }
                             return null;
                           },
@@ -155,15 +170,15 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                     color: ColorProperties.darkColor,
-                                    width: 2)), // Underline border styling
+                                    width: 2)),
                             suffixIcon: IconButton(
-                              onPressed: showPass, // Toggle password visibility
-                              icon: icon, // Password visibility icon
+                              onPressed: showPass,
+                              icon: icon,
                             ),
                             labelText: 'Password',
                             labelStyle: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: ColorProperties.darkColor, // Label text color
+                              color: ColorProperties.darkColor,
                             ),
                           ),
                         ),
@@ -177,14 +192,17 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                           width: 200, // Adjust the width as needed
                           height: 50, // Adjust the height as needed
                           decoration: BoxDecoration(
-                            gradient: ColorProperties.mainColor, // Applying gradient background
-                            borderRadius: BorderRadius.circular(30), // Optional: Set border radius
+                            gradient: ColorProperties.mainColor,
+                            borderRadius: BorderRadius.circular(
+                                30), // Optional: Set border radius
                           ),
                           child: Material(
-                            color: Colors.transparent, // Set the material color to transparent
+                            color: Colors
+                                .transparent, // Set the material color to transparent
                             child: InkWell(
-                              borderRadius: BorderRadius.circular(30), // Optional: Set border radius
-                              onTap: login, // Handle login on tap
+                              borderRadius: BorderRadius.circular(
+                                  30), // Optional: Set border radius
+                              onTap: login,
                               child: Center(
                                 child: Text(
                                   'LOGIN',
@@ -211,7 +229,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        ForgotPasswordScreen(), // Navigation to ForgotPasswordScreen
+                                        ForgotPasswordScreen(), // ForgotPasswordScreen par navigation
                                   ),
                                 );
                               },
@@ -225,7 +243,8 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                               ),
                             ),
                             SizedBox(
-                                height: 16), // Add space between the two text widgets
+                                height:
+                                    16), // Add space between the two text widgets
                             Text(
                               "Don't Have an Account?",
                               style: TextStyle(
@@ -240,7 +259,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const RegisterPageScreen())); // Navigation to RegisterPageScreen
+                                              const RegisterPageScreen()));
                                 },
                                 child: Text(
                                   "Sign up",
@@ -269,10 +288,10 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                           height: 10,
                         ),
                         ElevatedButton.icon(
-                          onPressed: _signInWithGoogle, // Sign in with Google
+                          onPressed: _signInWithGoogle,
                           style: ElevatedButton.styleFrom(
                             elevation: 10,
-                            backgroundColor: Colors.white, // Button background color
+                            backgroundColor: Colors.white,
                             padding: EdgeInsets.symmetric(
                                 vertical: 15, horizontal: 50),
                           ),

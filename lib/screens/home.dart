@@ -1,4 +1,5 @@
 import 'package:currensee/screens/splash_screen.dart';
+import 'package:currensee/screens/user_preferences.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,7 +18,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
-          ElevatedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => SplashScreen(),));}, child: Text("Splash screen"))
+          ElevatedButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => UserPreferences(),));
+          }, child: Text('Settings'))
         ],
       )
     );

@@ -1,8 +1,8 @@
 import 'package:currensee/api_tasks.dart';
 import 'package:currensee/models/historical_rates.dart';
 import 'package:currensee/screens/AppBar.dart';
+import 'package:currensee/screens/drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ChartScreen extends StatefulWidget {
@@ -51,12 +51,14 @@ class _ChartScreenState extends State<ChartScreen> {
   void initState() {
     super.initState();
     _tooltipBehavior = TooltipBehavior(enable: true);
+    print('Historical chart Launched');
     updateChartData(selectedMonth, selectedYear, selectedCurrency);
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: RoundAppBar(pageTitle: 'Historical Rates'),
+      // appBar: RoundAppBar(pageTitle: 'Historical Rates'),
+      drawer: CustomDrawer(),
       body: Column(
         children: [
           Form(

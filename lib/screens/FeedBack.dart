@@ -2,7 +2,7 @@ import 'package:currensee/api_tasks.dart';
 import 'package:currensee/Preferences.dart';
 import 'package:currensee/app_properties.dart';
 import 'package:currensee/screens/AppBar.dart';
-import 'package:currensee/screens/navigation.dart';
+import 'package:currensee/screens/bottom_navigation.dart';
 import 'package:currensee/screens/faq_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +47,7 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: RoundAppBar(pageTitle: 'Feedback'),
+      // appBar: RoundAppBar(pageTitle: 'Feedback'),
       body: Container(
         height: double.infinity,
         width: double.infinity,

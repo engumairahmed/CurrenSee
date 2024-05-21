@@ -1,9 +1,11 @@
+
 import 'package:currensee/preferences.dart'; // Importing preferences for user data
 import 'package:currensee/app_properties.dart'; // Importing app properties for styling
-import 'package:currensee/screens/navigation.dart'; // Importing navigation screen
+import 'package:currensee/screens/bottom_navigation.dart';// Importing navigation screen
 import 'package:currensee/screens/login.dart'; // Importing login screen
 import 'package:flutter/material.dart'; // Importing Flutter material package
 import 'package:lottie/lottie.dart'; // Importing Lottie for animations
+
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -30,7 +32,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+
     // Checking user login status then navigating to appropriate screen
+    print("Splash Screen");
+    // checkUser() then navigate to appropriate screen
+
     checkUser().then((_) {
       // After a delay of 3 seconds, navigate to the main screen or login screen based on login status
       if (isLoggedIn) {
