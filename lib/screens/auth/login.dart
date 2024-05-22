@@ -38,56 +38,62 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
 
   AuthService _authService = AuthService(); 
 
+// Function to sign out the user
   Future<void> logOut() async {
     await _authService.signOut();
   }
-
+// Function to show/hide password
   void showPass() {
-    setState(() {
-      isPasswordObs = !isPasswordObs;
-      if (isPasswordObs) {
-        icon = Icon(Icons.visibility, color: Colors.grey);
-      } else {
-        icon = Icon(Icons.visibility_off, color: Colors.grey);
-      }
-    });
+  setState(() {
+    isPasswordObs = !isPasswordObs; // Toggle password visibility
+    // Update icon based on password visibility state
+    if (isPasswordObs) {
+      icon = Icon(Icons.visibility, color: Colors.grey); // Show password icon
+    } else {
+      icon = Icon(Icons.visibility_off, color: Colors.grey); // Hide password icon
+    }
+  });
+}
+// Function to sign in with Google
+void _signInWithGoogle() async {
+  User? user = await _authService.signInWithGoogle(); // Perform Google sign-in
+  if (user != null) {
+    await setuser(user.uid); // Save user ID to preferences
+    // Navigate to bottomNavigationBar screen if sign-in is successful
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => bottomNavigationBar()),
+    );
+  } else {
+    // Show error message if sign-in fails
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Sign-in failed')),
+    );
   }
+}
+// Function to log in using email and password
+Future<void> login() async {
+  if (_formKey.currentState!.validate()) { // Validate the form
+    print(_emailController.text.trim()); // Print trimmed email input
+    // Perform login task with email and password
+    var res = await loginTask(_emailController.text, _passwordController.text);
+    var res2 = res.keys.toList();
+    print(res[res2[0]]); // Print login task result
 
-
-  void _signInWithGoogle() async {
-    User? user = await _authService.signInWithGoogle();
-    if (user != null) {
-      await setuser(user.uid);
+    if (res[res2[0]]!) { // Check if login was successful
+      // Navigate to bottomNavigationBar screen if login is successful
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => bottomNavigationBar()), // Replace with your home screen
+        MaterialPageRoute(builder: (context) => bottomNavigationBar()),
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Sign-in failed')),
-      );
+      // Update login error message if login fails
+      setState(() {
+        loginError = res2[0];
+      });
     }
   }
-
-
-  Future<void> login() async {
-    if (_formKey.currentState!.validate()) {
-      print(_emailController.text.trim());
-      var res =
-          await loginTask(_emailController.text, _passwordController.text);
-      var res2 = res.keys.toList();
-      print(res[res2[0]]);
-
-      if (res[res2[0]]!) {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => bottomNavigationBar()));
-      } else {
-        setState(() {
-          loginError = res2[0];
-        });
-      }
-    }
-  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -227,7 +233,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        ForgotPasswordScreen(), // ForgotPasswordScreen par navigation
+                                        ForgotPasswordScreen(), // navigate to forgot password screen
                                   ),
                                 );
                               },
