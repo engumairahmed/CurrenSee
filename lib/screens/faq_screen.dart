@@ -1,6 +1,5 @@
 import 'package:currensee/app_properties.dart'; // Importing app properties for styling
 import 'package:currensee/screens/AppBar.dart'; // Importing custom app bar
-import 'package:currensee/screens/FeedBack.dart'; // Importing feedback screen (not used in the code)
 import 'package:currensee/screens/drawer.dart'; // Importing custom drawer
 
 import 'package:flutter/material.dart'; // Importing Flutter material package

@@ -1,9 +1,5 @@
 import 'package:currensee/api_tasks.dart';
-import 'package:currensee/Preferences.dart';
 import 'package:currensee/app_properties.dart';
-import 'package:currensee/screens/AppBar.dart';
-import 'package:currensee/screens/bottom_navigation.dart';
-import 'package:currensee/screens/faq_screen.dart';
 import 'package:flutter/material.dart';
 
 class FeedBackScreen extends StatefulWidget {

@@ -1,15 +1,11 @@
 
 import 'package:currensee/app_properties.dart';
 import 'package:currensee/google_auth_service.dart';
-import 'package:currensee/preferences.dart';
-import 'package:currensee/screens/converter.dart';
-import 'package:currensee/screens/currency_converter.dart';
+import 'package:currensee/screens/conversion/currency_converter.dart';
 import 'package:currensee/screens/drawer.dart';
-import 'package:currensee/screens/faq_screen.dart';
-import 'package:currensee/screens/feedback.dart';
-import 'package:currensee/screens/chart.dart';
+import 'package:currensee/screens/conversion/chart.dart';
 import 'package:currensee/screens/home.dart';
-import 'package:currensee/screens/login.dart';
+import 'package:currensee/screens/auth/login.dart';
 import 'package:flutter/material.dart';
 
 class bottomNavigationBar extends StatefulWidget {
@@ -23,19 +19,6 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
 
   AuthService _authService = new AuthService();
 
-  String userName="";
-  String userEmail="";
-
-  Future<void> showUserProfile() async {
-    print('BNG showUser Execution');
-    var user = await getUserData();
-    var id = await getUser();
-    setState(() { 
-    userName=user.name;
-    userEmail=user.email;
-    print('BGN showUser Execution Ended');
-    });
-  }
 
   int myCurrentIndex = 2 ;
   List pages = const[
@@ -48,9 +31,7 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('Bottom Naivgation Screen Launched');
-    showUserProfile();
-    print('BTN showUser Executed');
+    print('BNB Launched');
   }
 
   @override

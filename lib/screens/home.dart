@@ -1,4 +1,4 @@
-import 'package:currensee/screens/splash_screen.dart';
+
 import 'package:currensee/screens/user_preferences.dart';
 import 'package:flutter/material.dart';
 

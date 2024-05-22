@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:async';
 
 import 'package:currensee/api_tasks.dart';
 import 'package:currensee/models/user_model.dart';
@@ -29,12 +29,44 @@ SharedPreferences shared = await SharedPreferences.getInstance();
    return id;
 }
 
+Future<void> setUserData() async {
+  SharedPreferences shared = await SharedPreferences.getInstance();
+  var id = shared.getString("user_id");
+  var data = await userDataTask(id!);
+  shared.setString("user_name", data!.name);
+  shared.setString("user_email", data.email);
+  shared.setString("user_pass", data.password);
+  print(shared.getString("user_name"));
+  print(shared.getString("user_email"));
+  print(shared.getString("user_pass"));
+
+}
+
 Future<UserModel> getUserData() async {
   SharedPreferences shared = await SharedPreferences.getInstance();
   var id = shared.getString("user_id");
-  var data= await userDataTask(id!);
-  var user = UserModel.convertFromJson(jsonDecode(data!));
+  var name = shared.getString("user_name");
+  var email = shared.getString("user_email");
+  var password = shared.getString("user_pass");
+  if(id==null || name==null || email==null || password==null){
+    print('Null or empty user');
+    return UserModel(
+      id: "",
+      name: "",
+      email: "",
+      password: "",
+    );
+  
+  } else{
+  UserModel user = UserModel(
+    id: id,
+    name: name,
+    email: email,
+    password: password,
+  );
+  print(user.name+" "+user.email+" "+user.password);
   return user;
+  }
 }
 
 Future<void> removeUser() async {
@@ -43,9 +75,31 @@ Future<void> removeUser() async {
   shared.clear();
 }
 
-Future<void> setUserPreferences(String BaseCurrency, String TargetCurrency, String Notification) async {
-SharedPreferences shared = await SharedPreferences.getInstance();
-shared.setString('baseCurrency', BaseCurrency);
-shared.setString('targetCurrency', TargetCurrency);
-shared.setString('notification', Notification);
+Future<void> setUserPreferences({required String BaseCurrency,required String TargetCurrency,required bool Notification}) async {
+  SharedPreferences shared = await SharedPreferences.getInstance();
+  shared.setString('baseCurrency', BaseCurrency);
+  shared.setString('targetCurrency', TargetCurrency);
+  shared.setBool('notification', Notification);
+}
+
+Future<Map<String,dynamic>> getUserPreferences() async {
+  SharedPreferences shared = await SharedPreferences.getInstance();
+  var baseCurrency = shared.getString('baseCurrency');
+  var targetCurrency = shared.getString('targetCurrency');
+  var notification = shared.getBool('notification');
+  if(baseCurrency==null || targetCurrency==null){
+    print('SharedPreferences not found');
+    return {
+      'status':false
+    };
+  }else{
+
+    return {
+        'status':true,
+        'baseCurrency': baseCurrency,
+        'targetCurrency': targetCurrency,
+        'notification': notification
+      };
+  }
+  
 }

@@ -1,5 +1,5 @@
 import 'package:currensee/api_tasks.dart'; // Importing API tasks
-import 'package:currensee/screens/login.dart'; // Importing login screen
+import 'package:currensee/screens/auth/login.dart'; // Importing login screen
 import 'package:flutter/material.dart'; // Importing Flutter material package
 import 'package:google_fonts/google_fonts.dart'; // Importing Google Fonts
 import 'package:currensee/app_properties.dart'; // Importing app properties for styling
@@ -19,7 +19,6 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
   final TextEditingController _confirmPasswordController = TextEditingController(); // Controller for confirm password input
 
   String _password = ''; // Variable to store password
-  String _confirmPassword = ''; // Variable to store confirm password
   String emailError = ''; // Variable to store email error message
 
   bool isPasswordObs = true; // Variable to toggle password visibility
@@ -45,8 +44,6 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
       var res = await registerTask(
           _nameController.text, _emailController.text, _passwordController.text, 'null'); // Perform registration task
       var res2 = res.keys.toList();
-      print(res);
-      print(res2);
 
       if (res[res2[0]]!) { // If registration is successful
 
@@ -180,11 +177,6 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                               TextFormField(
                                 obscureText: isPasswordObs,
                                 controller: _confirmPasswordController,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _confirmPassword = value; // Set confirm password value
-                                  });
-                                },
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'Please confirm your password'; // Validation for empty confirm password

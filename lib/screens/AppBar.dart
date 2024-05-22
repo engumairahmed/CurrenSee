@@ -2,7 +2,6 @@ import 'package:currensee/app_properties.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'drawer.dart';
 
 class RoundAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String pageTitle;

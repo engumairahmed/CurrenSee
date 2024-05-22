@@ -2,7 +2,7 @@
 import 'package:currensee/preferences.dart'; // Importing preferences for user data
 import 'package:currensee/app_properties.dart'; // Importing app properties for styling
 import 'package:currensee/screens/bottom_navigation.dart';// Importing navigation screen
-import 'package:currensee/screens/login.dart'; // Importing login screen
+import 'package:currensee/screens/auth/login.dart'; // Importing login screen
 import 'package:flutter/material.dart'; // Importing Flutter material package
 import 'package:lottie/lottie.dart'; // Importing Lottie for animations
 

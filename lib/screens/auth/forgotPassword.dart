@@ -1,6 +1,5 @@
 import 'package:currensee/app_properties.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,6 +14,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
+  
 
   Future<void> resetLink() async{
     if (_formKey.currentState!.validate()) {
@@ -46,6 +46,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    
   }
 
   @override

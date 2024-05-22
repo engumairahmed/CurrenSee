@@ -3,14 +3,12 @@ import 'package:currensee/api_tasks.dart'; // Importing API tasks
 import 'package:currensee/google_auth_service.dart'; // Importing Google authentication service
 import 'package:currensee/preferences.dart'; // Importing preferences for user data
 import 'package:currensee/screens/bottom_navigation.dart';// Importing navigation screen
-import 'package:currensee/screens/forgotPassword.dart'; // Importing forgot password screen
-import 'package:currensee/screens/home.dart'; // Importing home screen
-import 'package:currensee/screens/register.dart'; // Importing register screen
+import 'package:currensee/screens/auth/forgotPassword.dart'; // Importing forgot password screen
+import 'package:currensee/screens/auth/register.dart'; // Importing register screen
 import 'package:firebase_auth/firebase_auth.dart'; // Importing Firebase Auth
 import 'package:flutter/material.dart'; // Importing Flutter material package
 import 'package:google_fonts/google_fonts.dart'; // Importing Google Fonts
 import 'package:currensee/app_properties.dart'; // Importing app properties for styling
-import 'package:google_sign_in/google_sign_in.dart'; // Importing Google Sign-In
 
 class LoginPageScreen extends StatefulWidget {
   const LoginPageScreen({super.key});

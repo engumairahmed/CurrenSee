@@ -1,7 +1,6 @@
 import 'package:currensee/api_tasks.dart';
 import 'package:currensee/models/historical_rates.dart';
 import 'package:currensee/screens/AppBar.dart';
-import 'package:currensee/screens/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -58,7 +57,7 @@ class _ChartScreenState extends State<ChartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: RoundAppBar(pageTitle: 'Historical Rates'),
-      drawer: CustomDrawer(),
+      appBar: RoundAppBar(pageTitle: 'Chart', buildContext: context,),
       body: Column(
         children: [
           Form(

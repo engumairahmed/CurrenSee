@@ -47,5 +47,18 @@ String currencyCodesURL="https://currensee.000webhostapp.com/conversion/getcurre
 
 // ------> User Conversion History URL
 
-String conversionHistoryURL = "https://currensee.000webhostapp.com/conversion/conversionhistory.php";
-// String conversionHistoryURL = "http://localhost/phpapi/currensee/conversion/conversionhistory.php";
+String conversionHistoryURL = "https://currensee.000webhostapp.com/conversion/conversionhistory.php?id=";
+// String conversionHistoryURL = "http://localhost/phpapi/currensee/conversion/conversionhistory.php?id=";
+
+
+// ------> User Preferences URL
+
+// String userPreferencesURL = "http://localhost/phpapi/currensee/userpreferences.php";
+String userPreferencesURL = "https://currensee.000webhostapp.com/userpreferences.php";
+
+
+
+// ------> Fetch User Preferences URL
+
+// String getPreferencesURL = "http://localhost/phpapi/currensee/getuserpreferences.php?id=";
+String getPreferencesURL = "https://currensee.000webhostapp.com/getuserpreferences.php?id=";

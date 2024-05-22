@@ -1,7 +1,5 @@
 
 import 'dart:async'; // Importing Dart async package
-import 'dart:js_interop';// Importing Dart async package
-import 'dart:ui'; // Importing Dart UI package
 
 import 'package:currensee/api_tasks.dart'; // Importing API tasks
 import 'package:currensee/app_properties.dart';//  Importing app properties for styling

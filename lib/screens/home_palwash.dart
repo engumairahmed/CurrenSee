@@ -1,7 +1,7 @@
 import 'package:currensee/screens/FeedBack.dart';
-import 'package:currensee/screens/chart.dart';
+import 'package:currensee/screens/conversion/chart.dart';
 import 'package:flutter/material.dart';
-import 'package:currensee/screens/currency_converter.dart';
+import 'package:currensee/screens/conversion/currency_converter.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

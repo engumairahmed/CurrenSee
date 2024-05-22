@@ -1,34 +1,46 @@
 import 'package:currensee/Preferences.dart';
 import 'package:currensee/app_properties.dart';
 import 'package:currensee/google_auth_service.dart';
-import 'package:currensee/screens/Converter.dart';
 import 'package:currensee/screens/FeedBack.dart';
-import 'package:currensee/screens/chart.dart';
-import 'package:currensee/screens/currency_converter.dart';
+import 'package:currensee/screens/conversion/chart.dart';
+import 'package:currensee/screens/conversion/currency_converter.dart';
+import 'package:currensee/screens/conversion_history.dart';
 import 'package:currensee/screens/faq_screen.dart';
-import 'package:currensee/screens/home.dart';
-import 'package:currensee/screens/login.dart';
+import 'package:currensee/screens/auth/login.dart';
+import 'package:currensee/screens/user_preferences.dart';
 import 'package:flutter/material.dart';
 // import 'history.dart';
 // import 'hom1.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
+  @override
+  _CustomDrawerState createState() => _CustomDrawerState();
+}
 
-  AuthService _authService = new AuthService();
-  
-  String userName="";
-  String userEmail="";
+class _CustomDrawerState extends State<CustomDrawer> {
+  AuthService _authService = AuthService();
+
+  String userName = "";
+  String userEmail = "";
+
+  @override
+  void initState() {
+    super.initState();
+    showUserProfile();
+  }
 
   Future<void> showUserProfile() async {
     var user = await getUserData();
-    var id = await getUser();
-    userName=user.name;
-    userEmail=user.email;
+    print(user);
+    setState(() {
+      userName = user.name;
+      userEmail = user.email;
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
-
       child: Column(
         children: [
           Container(
@@ -44,17 +56,19 @@ class CustomDrawer extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-
-             children: [
+              children: [
                 CircleAvatar(
                   radius: 40.0,
-                  backgroundImage: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLHS121TqtsuRK7rS3D9U0qY4EhvhUhNwKrD8_zq9QUg&s"),
+                  backgroundImage: NetworkImage(
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLHS121TqtsuRK7rS3D9U0qY4EhvhUhNwKrD8_zq9QUg&s"),
                 ),
-                SizedBox(height: 5.0,),
-                Text(userName,
+                SizedBox(height: 5.0),
+                Text(
+                  userName,
                   style: TextStyle(fontSize: 22.0, color: Colors.white),
                 ),
-                Text(userEmail,
+                Text(
+                  userEmail,
                   style: TextStyle(fontSize: 22.0, color: Colors.white),
                 ),
               ],
@@ -66,7 +80,7 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ChartScreen()),
+                MaterialPageRoute(builder: (context) => ConversionHistory()),
               );
             },
           ),
@@ -112,9 +126,21 @@ class CustomDrawer extends StatelessWidget {
               );
             },
           ),
-
+          Divider(
+            color: Colors.grey,
+            thickness: 2.0,
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Settings'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => UserPreferences()),
+              );
+            },
+          ),
           Expanded(child: Container()),
-
           Divider(
             color: Colors.grey,
             thickness: 2.0,
@@ -122,17 +148,16 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.logout_rounded),
             title: Text('Logout'),
-            onTap: (){
+            onTap: () {
               showLogoutConfirmationDialog(context);
-              },
+            },
           ),
-
         ],
       ),
     );
   }
-  
-    Future<void> showLogoutConfirmationDialog(BuildContext context) async {
+
+  Future<void> showLogoutConfirmationDialog(BuildContext context) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -170,5 +195,4 @@ class CustomDrawer extends StatelessWidget {
       },
     );
   }
-
 }
