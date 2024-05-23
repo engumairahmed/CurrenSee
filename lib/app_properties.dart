@@ -19,6 +19,13 @@ class ColorProperties {
         Color(0xFF00203F),
       ]
   );
+  static Gradient mainColorDoble =  const LinearGradient(
+      colors: [    
+        Color(0xFF00203F),
+        Color(0xFFADEFD1),
+        Color(0xFF00203F),
+      ]
+  );
   static Gradient mainColorCross =  const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
@@ -37,6 +44,7 @@ class ColorProperties {
 
   static Color darkColor = const Color(0xFF00203F);
   static Color lightColor = const Color(0xFFADEFD1);
+  static Color lightColor2= const Color.fromARGB(255, 98, 158, 140);
 
   static Color appBarColor = const Color.fromARGB(218, 0, 228, 186);
 

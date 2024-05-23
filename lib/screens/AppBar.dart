@@ -20,26 +20,20 @@ class RoundAppBar extends StatelessWidget implements PreferredSizeWidget {
           toolbarHeight: 90,
           backgroundColor: Colors.transparent,
           elevation: 0.0,
-          title: 
-        
-          Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0,0,8,4),
-                child: Text(                
-                  pageTitle,
-                  style: GoogleFonts.aleo(
-                    textStyle: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                    
-                  ),
+          title:         
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Text(                
+              pageTitle,
+              style: GoogleFonts.aleo(
+                textStyle: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
+                
               ),
-            ],
+            ),
           ),
           iconTheme: IconThemeData(color: Colors.white),
           centerTitle: true,

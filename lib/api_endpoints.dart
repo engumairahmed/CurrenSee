@@ -60,5 +60,5 @@ String userPreferencesURL = "https://currensee.000webhostapp.com/userpreferences
 
 // ------> Fetch User Preferences URL
 
-// String getPreferencesURL = "http://localhost/phpapi/currensee/getuserpreferences.php?id=";
-String getPreferencesURL = "https://currensee.000webhostapp.com/getuserpreferences.php?id=";
+String getPreferencesURL = "http://localhost/phpapi/currensee/getuserpreferences.php?id=";
+// String getPreferencesURL = "https://currensee.000webhostapp.com/getuserpreferences.php?id=";

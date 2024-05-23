@@ -1,4 +1,5 @@
 import 'package:currensee/api_tasks.dart';
+import 'package:currensee/app_properties.dart';
 import 'package:currensee/models/historical_rates.dart';
 import 'package:currensee/screens/AppBar.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,10 @@ class _ChartScreenState extends State<ChartScreen> {
     return Scaffold(
       // appBar: RoundAppBar(pageTitle: 'Historical Rates'),
       appBar: RoundAppBar(pageTitle: 'Chart', buildContext: context,),
-      body: Column(
+      body: chartData.isEmpty ? 
+          Center(child: CircularProgressIndicator(color: ColorProperties.lightColor2,))
+          :
+          Column(
         children: [
           Form(
             child: Row(
@@ -151,6 +155,7 @@ class _ChartScreenState extends State<ChartScreen> {
                                   markerSettings:
                                       MarkerSettings(isVisible: true),
                                   enableTooltip: true,
+                                  color: ColorProperties.lightColor2,
                                 ),
                               ],
                             ),

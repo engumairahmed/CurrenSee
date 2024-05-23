@@ -36,19 +36,42 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
     if (formkey.currentState!.validate()) {
       // Send feedback data to your server or database
       // var UserId=await getUser();
-       await feedbackTask(_feedback, _rating);
+      await feedbackTask(_feedback, _rating);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: RoundAppBar(pageTitle: 'Feedback'),
+      appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(gradient: ColorProperties.mainColorCross),
+        ),
+        title: Center(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 70),
+              child: Text(
+                        'Feedback',
+                        style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+                        ),
+                      ),
+            )),
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back,color: Colors.white,),
+          onPressed:(){
+            Navigator.pop(context);
+          } ,
+        ),
+      ),
       body: Container(
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: ColorProperties.mainColorCross,
+          gradient: ColorProperties.mainColor,
         ),
         child: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(10, 60, 10, 0),
@@ -61,16 +84,17 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
                 ),
                 Text(
                   'Rate our application:',
-                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold,color: Colors.white),
+                  style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
                 SizedBox(height: 8.0),
                 Container(
                   decoration: BoxDecoration(
-                    border:
-                        Border.all(color: Colors.orange),
-                    borderRadius: BorderRadius.circular(
-                        10),
-                  color: Colors.white,
+                    border: Border.all(color: Colors.orange),
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -116,7 +140,10 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
                 SizedBox(height: 20.0),
                 Text(
                   'Do You Have Any Thoughts You Would Like to Share?',
-                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold,color: Colors.white),
+                  style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
                 SizedBox(height: 15.0),
                 Padding(

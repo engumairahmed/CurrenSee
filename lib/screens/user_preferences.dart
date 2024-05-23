@@ -18,25 +18,12 @@ class _UserPreferencesState extends State<UserPreferences> {
 
   List<String> _currencyCodes = [];
 
-  // Future<void> _fetchCurrencyCodes() async {
-  //   try {
-  //     _currencyCodes = await fetchCurrencyCodes();
-  //     setState(() {
-  //       _baseCurrency = _currencyCodes.isNotEmpty ? _currencyCodes[0] : '';
-  //       _targetCurrency = _currencyCodes.isNotEmpty ? _currencyCodes[0] : '';
-  //     });
-  //   } catch (e) {
-  //     print(e.toString());
-  //   }
-  // }
-
   Future<void> _fetchCurrencyCodes() async {
     try {
       List<String> currencyCodes = await fetchCurrencyCodes();
       setState(() {
         _currencyCodes = currencyCodes;
         if (_currencyCodes.isNotEmpty) {
-          // Ensure default values are part of the fetched list
           if (!_currencyCodes.contains(_baseCurrency)) {
             _baseCurrency = _currencyCodes[0];
           }
@@ -51,10 +38,11 @@ class _UserPreferencesState extends State<UserPreferences> {
   }
 
   Future<void> updateUserPreference() async {
-
     var id = await getUser();
-
-    await setUserPreferences(BaseCurrency: _baseCurrency,TargetCurrency: _targetCurrency,Notification: _notificationsEnabled);
+    await setUserPreferences(
+        BaseCurrency: _baseCurrency,
+        TargetCurrency: _targetCurrency,
+        Notification: _notificationsEnabled);
 
     var res = await userPreferencesTask(
         _baseCurrency, _targetCurrency, id!, _notificationsEnabled);
@@ -62,12 +50,11 @@ class _UserPreferencesState extends State<UserPreferences> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(res)),
     );
-
   }
 
-  Future<void> _getUserPreferences() async{
+  Future<void> _getUserPreferences() async {
     var data = await getUserPreferences();
-    if(data['status']){
+    if (data['status']) {
       print('Fetched from SharedPreferences');
 
       setState(() {
@@ -75,26 +62,24 @@ class _UserPreferencesState extends State<UserPreferences> {
         _baseCurrency = data['baseCurrency'];
         _notificationsEnabled = data['notification'];
       });
-    } else{
+    } else {
       var id = await getUser();
       var data = await fetchPreferencesTask(id!);
-      
-      if(data['APIStatus']){
-      print('Fetched from API');
-      
-       setState(() {
-        _baseCurrency = data['baseCurrency'];
-        _targetCurrency = data['targetCurrency'];
-        _notificationsEnabled = data['notification'];
-       });
-       await setUserPreferences(
-        BaseCurrency: data['baseCurrency'], 
-        TargetCurrency: data['targetCurrency'], 
-        Notification: _notificationsEnabled
-        );
 
+      if (data['APIStatus']) {
+        print('Fetched from API');
+
+        setState(() {
+          _baseCurrency = data['baseCurrency'];
+          _targetCurrency = data['targetCurrency'];
+          _notificationsEnabled = data['notification'];
+        });
+
+        await setUserPreferences(
+            BaseCurrency: data['baseCurrency'],
+            TargetCurrency: data['targetCurrency'],
+            Notification: _notificationsEnabled);
       }
-
     }
   }
 
@@ -103,8 +88,7 @@ class _UserPreferencesState extends State<UserPreferences> {
     super.initState();
     print('User Preference Screen Launched');
     _fetchCurrencyCodes();
-    _getUserPreferences();   
-
+    _getUserPreferences();
   }
 
   @override
@@ -114,13 +98,14 @@ class _UserPreferencesState extends State<UserPreferences> {
         title: Text('Settings'),
         actions: [
           TextButton(
-            onPressed: (){
+            onPressed: () {
               updateUserPreference();
             },
-              child: Text(
-                'SAVE',
-                style: TextStyle(color: ColorProperties.darkColor),
-              ))
+            child: Text(
+              'SAVE',
+              style: TextStyle(color: ColorProperties.darkColor),
+            ),
+          ),
         ],
       ),
       backgroundColor: Colors.white,
@@ -149,8 +134,9 @@ class _UserPreferencesState extends State<UserPreferences> {
               decoration: InputDecoration(
                 focusColor: ColorProperties.darkColor,
                 focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: ColorProperties.darkColor, width: 2)),
+                  borderSide:
+                      BorderSide(color: ColorProperties.darkColor, width: 2),
+                ),
                 border: OutlineInputBorder(),
               ),
               value: _targetCurrency,
@@ -178,8 +164,9 @@ class _UserPreferencesState extends State<UserPreferences> {
             DropdownButtonFormField<String>(
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: ColorProperties.darkColor, width: 2)),
+                  borderSide:
+                      BorderSide(color: ColorProperties.darkColor, width: 2),
+                ),
                 border: OutlineInputBorder(),
               ),
               value: _baseCurrency,
@@ -214,22 +201,26 @@ class _UserPreferencesState extends State<UserPreferences> {
                     BorderRadius.circular(30), // Optional: Set border radius
               ),
               child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              elevation: 20,
-              backgroundColor: Colors.transparent,
-              foregroundColor: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-            ),
+                style: ElevatedButton.styleFrom(
+                  elevation: 20,
+                  backgroundColor: Colors.transparent,
+                  foregroundColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChangePassword(),
-                      ));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChangePassword(),
+                    ),
+                  );
                 },
-                child: Text('Change Password',style: TextStyle(color: Colors.black),),
+                child: Text(
+                  'Change Password',
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
             ),
           ],

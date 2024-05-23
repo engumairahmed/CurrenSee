@@ -7,7 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future<void> setuser(String id) async {
   SharedPreferences shared = await SharedPreferences.getInstance();
   shared.setString("user_id", id);
-  print(shared.getString("user_id"));
 }
 
 Future<String?> getUser() async {
@@ -36,10 +35,6 @@ Future<void> setUserData() async {
   shared.setString("user_name", data!.name);
   shared.setString("user_email", data.email);
   shared.setString("user_pass", data.password);
-  print(shared.getString("user_name"));
-  print(shared.getString("user_email"));
-  print(shared.getString("user_pass"));
-
 }
 
 Future<UserModel> getUserData() async {
@@ -49,7 +44,6 @@ Future<UserModel> getUserData() async {
   var email = shared.getString("user_email");
   var password = shared.getString("user_pass");
   if(id==null || name==null || email==null || password==null){
-    print('Null or empty user');
     return UserModel(
       id: "",
       name: "",
@@ -64,7 +58,6 @@ Future<UserModel> getUserData() async {
     email: email,
     password: password,
   );
-  print(user.name+" "+user.email+" "+user.password);
   return user;
   }
 }
@@ -102,4 +95,26 @@ Future<Map<String,dynamic>> getUserPreferences() async {
       };
   }
   
+}
+
+Future<void> setCurrencyCodes(List<String> codes) async {
+  print(codes);
+  SharedPreferences shared = await SharedPreferences.getInstance();
+  bool result = await shared.setStringList('currencyCodes', codes);
+  if (result) {
+    var storedCodes = shared.getStringList('currencyCodes');
+    print(storedCodes);
+  } else {
+    print("Failed to store currency codes");
+  }
+}
+
+Future<List<String>> getCurrencyCodes() async {
+  SharedPreferences shared = await SharedPreferences.getInstance();
+  var codes = shared.getStringList('currencyCodes');
+  if (codes != null) {
+    return codes;
+  } else {
+    return []; // Return an empty list if no codes are found
+  }
 }

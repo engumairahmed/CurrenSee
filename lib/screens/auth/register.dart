@@ -50,15 +50,20 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(res2[0])), // Show success message
         );
+
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const LoginPageScreen())); // Navigate to LoginPageScreen
+
       } else {
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(res2[0])), // Show error message
         );
+
         setState(() {
           emailError = res2[0]; // Set email error message
         });
+
       }
     }
   }

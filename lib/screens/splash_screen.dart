@@ -1,4 +1,5 @@
 
+import 'package:currensee/api_tasks.dart';
 import 'package:currensee/preferences.dart'; // Importing preferences for user data
 import 'package:currensee/app_properties.dart'; // Importing app properties for styling
 import 'package:currensee/screens/bottom_navigation.dart';// Importing navigation screen
@@ -13,7 +14,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  
   bool isLoggedIn = false; // Variable to check if the user is logged in
+
 
   // Function to check if the user is logged in
   Future<void> checkUser() async {
@@ -29,6 +32,8 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
+  
+
   @override
   void initState() {
     super.initState();
@@ -38,6 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // checkUser() then navigate to appropriate screen
 
     checkUser().then((_) {
+      
       // After a delay of 3 seconds, navigate to the main screen or login screen based on login status
       if (isLoggedIn) {
         Future.delayed(Duration(seconds: 3), () {

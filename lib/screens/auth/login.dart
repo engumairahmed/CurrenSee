@@ -42,43 +42,47 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   Future<void> logOut() async {
     await _authService.signOut();
   }
+
 // Function to show/hide password
   void showPass() {
   setState(() {
-    isPasswordObs = !isPasswordObs; // Toggle password visibility
-    // Update icon based on password visibility state
+    isPasswordObs = !isPasswordObs; 
     if (isPasswordObs) {
-      icon = Icon(Icons.visibility, color: Colors.grey); // Show password icon
+      icon = Icon(Icons.visibility, color: Colors.grey);
     } else {
-      icon = Icon(Icons.visibility_off, color: Colors.grey); // Hide password icon
+      icon = Icon(Icons.visibility_off, color: Colors.grey);
     }
   });
 }
 // Function to sign in with Google
 void _signInWithGoogle() async {
+
   User? user = await _authService.signInWithGoogle(); // Perform Google sign-in
+
   if (user != null) {
+
     await setuser(user.uid); // Save user ID to preferences
+
     // Navigate to bottomNavigationBar screen if sign-in is successful
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => bottomNavigationBar()),
+
     );
   } else {
-    // Show error message if sign-in fails
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Sign-in failed')),
     );
   }
 }
+
 // Function to log in using email and password
 Future<void> login() async {
-  if (_formKey.currentState!.validate()) { // Validate the form
-    print(_emailController.text.trim()); // Print trimmed email input
+  if (_formKey.currentState!.validate()) { 
+
     // Perform login task with email and password
     var res = await loginTask(_emailController.text, _passwordController.text);
     var res2 = res.keys.toList();
-    print(res[res2[0]]); // Print login task result
 
     if (res[res2[0]]!) { // Check if login was successful
       // Navigate to bottomNavigationBar screen if login is successful
@@ -94,6 +98,14 @@ Future<void> login() async {
     }
   }
 }
+
+@override
+  void dispose() {
+    // TODO: implement dispose
+    _passwordController.dispose();
+    _emailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -193,19 +205,19 @@ Future<void> login() async {
                           height: 10,
                         ),
                         Container(
-                          width: 200, // Adjust the width as needed
-                          height: 50, // Adjust the height as needed
+                          width: 200,
+                          height: 50, 
                           decoration: BoxDecoration(
                             gradient: ColorProperties.mainColor,
                             borderRadius: BorderRadius.circular(
-                                30), // Optional: Set border radius
+                                30), // 
                           ),
                           child: Material(
                             color: Colors
                                 .transparent, // Set the material color to transparent
                             child: InkWell(
                               borderRadius: BorderRadius.circular(
-                                  30), // Optional: Set border radius
+                                  30), //
                               onTap: login,
                               child: Center(
                                 child: Text(
@@ -248,7 +260,7 @@ Future<void> login() async {
                             ),
                             SizedBox(
                                 height:
-                                    16), // Add space between the two text widgets
+                                    16), 
                             Text(
                               "Don't Have an Account?",
                               style: TextStyle(
@@ -303,7 +315,7 @@ Future<void> login() async {
                             padding: const EdgeInsets.only(right: 20.0),
                             child: Image.asset(
                               'lib/images/Google_logo.png',
-                              height: 40, // Adjust the height as needed
+                              height: 40, 
                             ),
                           ),
                           label: Text(

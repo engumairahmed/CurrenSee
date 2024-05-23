@@ -1,6 +1,8 @@
 
+import 'package:currensee/api_tasks.dart';
 import 'package:currensee/app_properties.dart';
 import 'package:currensee/google_auth_service.dart';
+import 'package:currensee/preferences.dart';
 import 'package:currensee/screens/conversion/currency_converter.dart';
 import 'package:currensee/screens/drawer.dart';
 import 'package:currensee/screens/conversion/chart.dart';
@@ -27,10 +29,32 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
     CurrencyConverterScreen()
   ];
 
+    Future<void> _fetchCurrencyCodes() async {
+
+    List<String> _currencyCodes = [];
+
+    try {
+
+      _currencyCodes = await fetchCurrencyCodes();
+
+        print(_currencyCodes);
+
+        await setCurrencyCodes(_currencyCodes);
+        print('SetCurrency Tried');  
+
+    } catch (e) {
+
+      print("Below is an error");
+      print(e.toString());
+
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _fetchCurrencyCodes();
     print('BNB Launched');
   }
 
@@ -40,12 +64,12 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
       drawer: CustomDrawer(),
       backgroundColor: Colors.white,
 bottomNavigationBar: Container(
-  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
   child: ClipRRect(
-    borderRadius: BorderRadius.circular(10),
+    borderRadius: BorderRadius.all(Radius.circular(50)),
     child: BottomNavigationBar(
-      backgroundColor: Color(0xFFA2A2A1),
-      selectedItemColor: ColorProperties.lightColor,
+      backgroundColor: Colors.white,
+      selectedItemColor: Color.fromARGB(255, 98, 158, 140),
       unselectedItemColor: Colors.black,
       currentIndex: myCurrentIndex,
       onTap: (index){
@@ -55,8 +79,8 @@ bottomNavigationBar: Container(
       },
       items: [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-        BottomNavigationBarItem(icon: Icon(Icons.chat_rounded), label: "Chart"),
-        BottomNavigationBarItem(icon: Icon(Icons.local_convenience_store_rounded), label: "Convert"),
+        BottomNavigationBarItem(icon: Icon(Icons.bar_chart_sharp), label: "Chart"),
+        BottomNavigationBarItem(icon: Icon(Icons.currency_exchange), label: "Convert"),
       ],),
     ),
     ),

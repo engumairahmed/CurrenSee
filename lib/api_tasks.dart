@@ -202,7 +202,10 @@ Future<Map<String,bool>> registerTask(String? name, String? email, String? passw
 
 Future<List<String>> fetchCurrencyCodes() async {
   try {
-    final response = await http.get(Uri.parse(currencyCodesURL));
+
+    http.Response response = await http.post(
+      Uri.parse(currencyCodesURL),
+    );
 
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body);
@@ -210,11 +213,16 @@ Future<List<String>> fetchCurrencyCodes() async {
           data.map((e) => e['CurrencyCode'].toString()).toList();
       return currencyCodes;
     } else {
-      throw Exception('Failed to load currency codes');
+      
+      throw Exception('Failed to load currency codes: ${response.statusCode}');
+
     }
   } catch (e) {
-    print(e.toString());
+
+    print('Error fetching currency codes: $e');
+
     return [];
+
   }
 }
 
@@ -225,8 +233,9 @@ Future<Map<String, dynamic>> conversionHistoryTask(String id) async {
     );
 
     if (response.statusCode == 200) {
+
       List<dynamic> data = jsonDecode(response.body);
-      print(data);
+    
       List<Map<String, dynamic>> historyList = data.map((record) {
         return {
           'base': record['Base_Currency'],
@@ -254,7 +263,6 @@ Future<Map<String, dynamic>> conversionHistoryTask(String id) async {
       };
     }
   } catch (error) {
-    print(error.toString());
     return {
       'ApiFailed': true,
       'message': error.toString(),
@@ -300,42 +308,41 @@ Future<String> userPreferencesTask(String BaseCurrency, String TargetCurrency, S
     }
 }
 
-Future<Map<String, dynamic>> fetchPreferencesTask(String id) async {
 
-    try{
-    http.Response response = await http.post(
-      Uri.parse(getPreferencesURL+id)
+Future<Map<String, dynamic>> fetchPreferencesTask(String id) async {
+  try {
+    http.Response response = await http.get(
+      Uri.parse(getPreferencesURL + id),
     );
 
     var res = jsonDecode(response.body);
 
-    if(response.statusCode==200){
-      print('Preferences fetched successfully from API server');
-      print(res[0]['Default_Base_Currency']);
-      print(res[0]['Default_Target_Currency']);
-      print(res[0]['Notification']);
-      if(res[0]['Notification']=='1'){
-        print('Result is true');
-        print(res[0]['Notification']);
-      } else {
-        print('Result is false');
-        print(res[0]['Notification']);
+    if (response.statusCode == 200) {
+      print('Preferences Response Code 200');
+
+      if (res.isEmpty) {
+        print('Result is Empty');
+
+        return {
+          'APIStatus': true,
+          'message': 'No Data Found'
+        };
       }
+
       return {
         'APIStatus': true,
-        'baseCurrency': res[0]['Default_Base_Currency'],
-        'targetCurrency': res[0]['Default_Target_Currency'],
-        'notification': res[0]['Notification'],        
+        'baseCurrency': res['Default_Base_Currency'],
+        'targetCurrency': res['Default_Target_Currency'],
+        'notification': res['Notification'],
       };
-    }else{
+    } else {
       print('Preferences fetch Failed');
       return {
         'APIStatus': false
       };
     }
-    }
-    catch(error){      
-      print(error.toString());
-      return {'error':error.toString()};
-    }
+  } catch (error) {
+    print(error.toString());
+    return {'error': error.toString()};
+  }
 }
