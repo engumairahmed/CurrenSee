@@ -1,6 +1,6 @@
 
 import 'package:currensee/app_properties.dart';
-import 'package:currensee/screens/FeedBack.dart';
+import 'package:currensee/screens/feedback.dart';
 import 'package:currensee/screens/conversion_history.dart';
 import 'package:currensee/screens/user_preferences.dart';
 import 'package:flutter/material.dart';

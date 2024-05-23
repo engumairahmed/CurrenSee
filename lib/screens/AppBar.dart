@@ -52,9 +52,7 @@ class RoundAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           leading: IconButton(icon: Icon(Icons.menu,color: Colors.white,),
           onPressed: (){
-            // globalKey.currentState!.openDrawer();
             Scaffold.of(buildContext).openDrawer();
-            print('Button pressed');
           }
           ),
         ),

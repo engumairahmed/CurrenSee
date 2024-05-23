@@ -22,7 +22,6 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
     // TODO: implement initState
     super.initState();
     logOut();
-    print('Login Screen Launched');
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

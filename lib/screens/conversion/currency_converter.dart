@@ -47,8 +47,9 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
         });
       }
     } catch (e) {
-      print('Below is an error');
-      print(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString())),
+        );
     }
   }
 
@@ -57,13 +58,14 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
       var id = await getUser();
       var res = await conversionTask(
           _baseCurrency, _targetCurrency, _amount.text, id!);
-      print(res);
       setState(() {
         _rate.text = res["rate"].toString();
         _converted.text = res["amount"].toString();
       });
     } catch (e) {
-      print(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString())),
+        );
     }
   }
 
@@ -72,7 +74,6 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
     super.initState();
     _fetchCurrencyCodes();
     _amount.text = '1';
-    print('Currency Converter launched');
   }
 
   @override

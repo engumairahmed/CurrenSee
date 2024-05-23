@@ -12,20 +12,17 @@ Future<void> setuser(String id) async {
 Future<String?> getUser() async {
   SharedPreferences shared = await SharedPreferences.getInstance();
   var id = shared.getString("user_id");
-  if(id==null){
-
+  if (id == null) {
     return null;
-
-  } else{
-
-  return id;
+  } else {
+    return id;
   }
 }
 
 Future<String> getId() async {
-SharedPreferences shared = await SharedPreferences.getInstance();
+  SharedPreferences shared = await SharedPreferences.getInstance();
   var id = shared.getString("user_id").toString();
-   return id;
+  return id;
 }
 
 Future<void> setUserData() async {
@@ -43,22 +40,21 @@ Future<UserModel> getUserData() async {
   var name = shared.getString("user_name");
   var email = shared.getString("user_email");
   var password = shared.getString("user_pass");
-  if(id==null || name==null || email==null || password==null){
+  if (id == null || name == null || email == null || password == null) {
     return UserModel(
       id: "",
       name: "",
       email: "",
       password: "",
     );
-  
-  } else{
-  UserModel user = UserModel(
-    id: id,
-    name: name,
-    email: email,
-    password: password,
-  );
-  return user;
+  } else {
+    UserModel user = UserModel(
+      id: id,
+      name: name,
+      email: email,
+      password: password,
+    );
+    return user;
   }
 }
 
@@ -68,48 +64,50 @@ Future<void> removeUser() async {
   shared.clear();
 }
 
-Future<void> setUserPreferences({required String BaseCurrency,required String TargetCurrency,required bool Notification}) async {
+Future<void> setUserPreferences(
+    {required String BaseCurrency,
+    required String TargetCurrency,
+    required bool Notification}) async {
   SharedPreferences shared = await SharedPreferences.getInstance();
   shared.setString('baseCurrency', BaseCurrency);
   shared.setString('targetCurrency', TargetCurrency);
   shared.setBool('notification', Notification);
 }
 
-Future<Map<String,dynamic>> getUserPreferences() async {
+Future<Map<String, dynamic>> getUserPreferences() async {
   SharedPreferences shared = await SharedPreferences.getInstance();
   var baseCurrency = shared.getString('baseCurrency');
   var targetCurrency = shared.getString('targetCurrency');
   var notification = shared.getBool('notification');
-  if(baseCurrency==null || targetCurrency==null){
-
+  if (baseCurrency == null || targetCurrency == null) {
     print('SharedPreferences not found');
 
+    return {'status': false};
+  } else {
     return {
-      'status':false
+      'status': true,
+      'baseCurrency': baseCurrency,
+      'targetCurrency': targetCurrency,
+      'notification': notification
     };
-
-  }else{
-
-    return {
-        'status':true,
-        'baseCurrency': baseCurrency,
-        'targetCurrency': targetCurrency,
-        'notification': notification
-      };
-      
   }
-  
 }
 
 Future<void> setCurrencyCodes(List<String> codes) async {
-  print(codes);
   SharedPreferences shared = await SharedPreferences.getInstance();
-  bool result = await shared.setStringList('currencyCodes', codes);
-  if (result) {
-    var storedCodes = shared.getStringList('currencyCodes');
-    print(storedCodes);
+
+  bool status = shared.containsKey('currencyCodes');
+
+  if (status) {
+    print("Keys already set");
   } else {
-    print("Failed to store currency codes");
+    bool result = await shared.setStringList('currencyCodes', codes);
+    if (result) {
+      // var storedCodes = shared.getStringList('currencyCodes');
+      print('Codes stored successfully');
+    } else {
+      print("Failed to store currency codes");
+    }
   }
 }
 

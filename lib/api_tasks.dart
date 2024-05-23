@@ -60,7 +60,6 @@ Future<Map<String, bool>> loginTask(String email, String pass) async {
       return {res["message"]: false};
     }
   } catch (error) {
-    print(error.toString());
     return {"Server / Api not reachable": false};
   }
 }
@@ -105,7 +104,6 @@ Future<UserModel?> userDataTask(String id) async {
       return null;
     }
   } catch (error) {
-    print(error.toString());
     return null;
   }
 }
@@ -122,12 +120,11 @@ Future<bool?> uidCheckTask(String uid) async {
       return false;
     }
   } catch (error) {
-    print(error.toString());
     return null;
   }
 }
 
-Future<void> feedbackTask(String message, int rating) async {
+Future<String> feedbackTask(String message, int rating) async {
   try {
     Map<String, dynamic> data = {
       'message': message,
@@ -142,13 +139,35 @@ Future<void> feedbackTask(String message, int rating) async {
       body: body,
     );
 
+    var res = jsonDecode(response.body);
+
+    return res["message"];
+  } catch (error) {
+    return error.toString();
+  }
+}
+
+Future<Map<String, dynamic>> userFeedbackTask(String id) async {
+  try {
+    http.Response response = await http.post(
+      Uri.parse(feedbackDataURL + id),
+    );
+
+    var res = jsonDecode(response.body);
+
+    print(res);
+    print("userFeedbackApi Called");
     if (response.statusCode == 200) {
+      return {
+        "status": true,
+        "rating": res["Rating"],
+        "feedbak": res["Message"]
+      };
     } else {
-      print("Feedback Failure");
+      return {"status": false, "message": res["message"]};
     }
   } catch (error) {
-    print(error.toString());
-    return;
+    return {"ApiFailed": true, "message": error.toString()};
   }
 }
 
@@ -177,7 +196,6 @@ Future<Map<String, dynamic>> conversionTask(String baseCurrency,
       return {"message": "API Failure"};
     }
   } catch (error) {
-    print(error.toString());
     return {};
   }
 }
@@ -208,7 +226,6 @@ Future<List<HistoricalRates>> historicalRateTask(
       return [];
     }
   } catch (error) {
-    print(error.toString());
     return [];
   }
 }
@@ -227,8 +244,7 @@ Future<List<String>> fetchCurrencyCodes() async {
     } else {
       throw Exception('Failed to load currency codes: ${response.statusCode}');
     }
-  } catch (e) {
-    print('Error fetching currency codes: $e');
+  } catch (e) {;
 
     return [];
   }
@@ -289,16 +305,12 @@ Future<String> userPreferencesTask(String BaseCurrency, String TargetCurrency,
 
     String body = jsonEncode(data);
 
-    print(body);
-
     http.Response response = await http.post(
       Uri.parse(userPreferencesURL),
       body: body,
     );
 
     var res = jsonDecode(response.body);
-
-    print(res);
 
     if (response.statusCode == 200) {
       print(res['message']);
@@ -308,7 +320,6 @@ Future<String> userPreferencesTask(String BaseCurrency, String TargetCurrency,
       return res['message'];
     }
   } catch (error) {
-    print(error.toString());
     return error.toString();
     // return {"Server / Api not reachable":false};
   }
@@ -323,26 +334,31 @@ Future<Map<String, dynamic>> fetchPreferencesTask(String id) async {
     var res = jsonDecode(response.body);
 
     if (response.statusCode == 200) {
-      print('Preferences Response Code 200');
 
       if (res.isEmpty) {
-        print('Result is Empty');
-
         return {'APIStatus': true, 'message': 'No Data Found'};
+      } else {
+        if(res["Notification"]=="1"){
+          return {          
+          'APIStatus': true,
+          'baseCurrency': res['Default_Base_Currency'],
+          'targetCurrency': res['Default_Target_Currency'],
+          'notification': true,
+        };
+        } else{
+          return {          
+          'APIStatus': true,
+          'baseCurrency': res['Default_Base_Currency'],
+          'targetCurrency': res['Default_Target_Currency'],
+          'notification': false,
+        };
+        }
+        
       }
-
-      return {
-        'APIStatus': true,
-        'baseCurrency': res['Default_Base_Currency'],
-        'targetCurrency': res['Default_Target_Currency'],
-        'notification': res['Notification'],
-      };
     } else {
-      print('Preferences fetch Failed');
-      return {'APIStatus': false};
+      return {'APIStatus': false,'message': 'No Data Found'};
     }
   } catch (error) {
-    print(error.toString());
-    return {'error': error.toString()};
+    return {'message': error.toString()};
   }
 }

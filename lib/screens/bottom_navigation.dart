@@ -36,13 +36,6 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
 
       _currencyCodes = await fetchCurrencyCodes();
 
-        print(_currencyCodes);
-        for (int i = 0; i < _currencyCodes.length; i++) {
-
-        print(_currencyCodes[i]);
-
-        }
-
         await setCurrencyCodes(_currencyCodes);
         print('SetCurrency Tried');  
 

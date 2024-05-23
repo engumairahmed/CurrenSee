@@ -39,6 +39,10 @@ String forgotpasswordurl = "https://currensee.000webhostapp.com/auth/reset.php";
 // String feedbackurl="https://currensee.000webhostapp.com/feedback.php";
 String feedbackurl = "http://localhost/phpapi/currensee/feedback.php";
 
+// ------> Get Feedback Data URL
+
+String feedbackDataURL = "http://localhost/phpapi/currensee/getfeedback.php?id=";
+
 // ------> Historical Rates URL
 
 // String historicalRatesURL="https://currensee.000webhostapp.com/conversion/historical.php";

@@ -1,5 +1,6 @@
 import 'package:currensee/api_tasks.dart';
 import 'package:currensee/app_properties.dart';
+import 'package:currensee/preferences.dart';
 import 'package:flutter/material.dart';
 
 class FeedBackScreen extends StatefulWidget {
@@ -18,6 +19,7 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
   @override
   void initState() {
     super.initState();
+    _getFeedback();
   }
 
   void _onRatingChanged(int rating) {
@@ -36,7 +38,28 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
     if (formkey.currentState!.validate()) {
       // Send feedback data to your server or database
       // var UserId=await getUser();
-      await feedbackTask(_feedback, _rating);
+      var res = await feedbackTask(_feedback, _rating);
+      
+
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(res)),
+        );
+
+    }
+  }
+
+  Future<void> _getFeedback() async {
+    var id = await getUser();
+    var res = await userFeedbackTask(id!);
+    if(res['status']){
+      setState(() {
+        _feedback = res['data']['feedback'];
+        _rating = res['data']['rating'];
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(res['message'])),
+        );
     }
   }
 

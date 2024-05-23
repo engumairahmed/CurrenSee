@@ -1,7 +1,7 @@
 import 'package:currensee/Preferences.dart';
 import 'package:currensee/app_properties.dart';
 import 'package:currensee/google_auth_service.dart';
-import 'package:currensee/screens/FeedBack.dart';
+import 'package:currensee/screens/feedback.dart';
 import 'package:currensee/screens/conversion_history.dart';
 import 'package:currensee/screens/faq_screen.dart';
 import 'package:currensee/screens/auth/login.dart';
@@ -29,7 +29,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
   Future<void> showUserProfile() async {
     var user = await getUserData();
-    print(user);
     setState(() {
       userName = user.name;
       userEmail = user.email;

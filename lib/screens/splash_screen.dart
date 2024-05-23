@@ -1,5 +1,4 @@
 
-import 'package:currensee/api_tasks.dart';
 import 'package:currensee/preferences.dart'; // Importing preferences for user data
 import 'package:currensee/app_properties.dart'; // Importing app properties for styling
 import 'package:currensee/screens/bottom_navigation.dart';// Importing navigation screen
@@ -9,8 +8,10 @@ import 'package:lottie/lottie.dart'; // Importing Lottie for animations
 
 
 class SplashScreen extends StatefulWidget {
+   const SplashScreen({super.key});
+
   @override
-  _SplashScreenState createState() => _SplashScreenState(); // Creating state for SplashScreen
+  State<SplashScreen> createState() => _SplashScreenState(); // Creating state for SplashScreen
 }
 
 class _SplashScreenState extends State<SplashScreen> {
@@ -38,22 +39,18 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    // Checking user login status then navigating to appropriate screen
-    print("Splash Screen");
-    // checkUser() then navigate to appropriate screen
-
     checkUser().then((_) {
       
       // After a delay of 3 seconds, navigate to the main screen or login screen based on login status
       if (isLoggedIn) {
-        Future.delayed(Duration(seconds: 3), () {
+        Future.delayed(const Duration(seconds: 3), () {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const bottomNavigationBar()), // Navigate to bottomNavigationBar if logged in
           );
         });
       } else {
-        Future.delayed(Duration(seconds: 3), () {
+        Future.delayed(const Duration(seconds: 3), () {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const LoginPageScreen()), // Navigate to LoginPageScreen if not logged in
