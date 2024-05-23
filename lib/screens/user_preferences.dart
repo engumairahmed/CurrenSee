@@ -79,6 +79,12 @@ class _UserPreferencesState extends State<UserPreferences> {
             BaseCurrency: data['baseCurrency'],
             TargetCurrency: data['targetCurrency'],
             Notification: _notificationsEnabled);
+      } else if (data['APIStatus']) {
+        setState(() {
+          _baseCurrency = 'USD';
+          _targetCurrency = 'PKR';
+          _notificationsEnabled = false;
+        });
       }
     }
   }
@@ -219,7 +225,7 @@ class _UserPreferencesState extends State<UserPreferences> {
                 },
                 child: Text(
                   'Change Password',
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
             ),

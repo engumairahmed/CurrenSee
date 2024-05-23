@@ -10,6 +10,11 @@ String loginurl = "http://localhost/phpapi/currensee/auth/login.php";
 // String registerurl="https://currensee.000webhostapp.com/auth/register.php";
 String registerurl = "http://localhost/phpapi/currensee/auth/register.php";
 
+// ------> User Password Update URL
+
+// String userPasswordUpdateurl = "https://currensee.000webhostapp.com/auth/changepassword.php";
+String userPasswordUpdateurl = "http://localhost/phpapi/currensee/auth/changepassword.php";
+
 // ------> User Profile URL
 
 // String userDataUrl="https://currensee.000webhostapp.com/auth/user.php?id=";
@@ -53,8 +58,8 @@ String conversionHistoryURL = "https://currensee.000webhostapp.com/conversion/co
 
 // ------> User Preferences URL
 
-// String userPreferencesURL = "http://localhost/phpapi/currensee/userpreferences.php";
-String userPreferencesURL = "https://currensee.000webhostapp.com/userpreferences.php";
+String userPreferencesURL = "http://localhost/phpapi/currensee/userpreferences.php";
+// String userPreferencesURL = "https://currensee.000webhostapp.com/userpreferences.php";
 
 
 

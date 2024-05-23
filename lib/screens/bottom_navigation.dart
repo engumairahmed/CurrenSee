@@ -1,13 +1,12 @@
 
 import 'package:currensee/api_tasks.dart';
-import 'package:currensee/app_properties.dart';
 import 'package:currensee/google_auth_service.dart';
 import 'package:currensee/preferences.dart';
 import 'package:currensee/screens/conversion/currency_converter.dart';
 import 'package:currensee/screens/drawer.dart';
 import 'package:currensee/screens/conversion/chart.dart';
-import 'package:currensee/screens/home.dart';
 import 'package:currensee/screens/auth/login.dart';
+import 'package:currensee/screens/home.dart';
 import 'package:flutter/material.dart';
 
 class bottomNavigationBar extends StatefulWidget {
@@ -38,6 +37,11 @@ class _bottomNavigationBarState extends State<bottomNavigationBar> {
       _currencyCodes = await fetchCurrencyCodes();
 
         print(_currencyCodes);
+        for (int i = 0; i < _currencyCodes.length; i++) {
+
+        print(_currencyCodes[i]);
+
+        }
 
         await setCurrencyCodes(_currencyCodes);
         print('SetCurrency Tried');  

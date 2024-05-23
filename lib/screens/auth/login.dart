@@ -1,8 +1,7 @@
-
 import 'package:currensee/api_tasks.dart'; // Importing API tasks
 import 'package:currensee/google_auth_service.dart'; // Importing Google authentication service
 import 'package:currensee/preferences.dart'; // Importing preferences for user data
-import 'package:currensee/screens/bottom_navigation.dart';// Importing navigation screen
+import 'package:currensee/screens/bottom_navigation.dart'; // Importing navigation screen
 import 'package:currensee/screens/auth/forgotPassword.dart'; // Importing forgot password screen
 import 'package:currensee/screens/auth/register.dart'; // Importing register screen
 import 'package:firebase_auth/firebase_auth.dart'; // Importing Firebase Auth
@@ -18,7 +17,6 @@ class LoginPageScreen extends StatefulWidget {
 }
 
 class _LoginPageScreenState extends State<LoginPageScreen> {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -27,7 +25,6 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
     print('Login Screen Launched');
   }
 
-  
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -36,7 +33,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   String loginError = "";
   Icon icon = Icon(Icons.visibility, color: Colors.grey);
 
-  AuthService _authService = AuthService(); 
+  AuthService _authService = AuthService();
 
 // Function to sign out the user
   Future<void> logOut() async {
@@ -45,61 +42,60 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
 
 // Function to show/hide password
   void showPass() {
-  setState(() {
-    isPasswordObs = !isPasswordObs; 
-    if (isPasswordObs) {
-      icon = Icon(Icons.visibility, color: Colors.grey);
-    } else {
-      icon = Icon(Icons.visibility_off, color: Colors.grey);
-    }
-  });
-}
-// Function to sign in with Google
-void _signInWithGoogle() async {
-
-  User? user = await _authService.signInWithGoogle(); // Perform Google sign-in
-
-  if (user != null) {
-
-    await setuser(user.uid); // Save user ID to preferences
-
-    // Navigate to bottomNavigationBar screen if sign-in is successful
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => bottomNavigationBar()),
-
-    );
-  } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Sign-in failed')),
-    );
+    setState(() {
+      isPasswordObs = !isPasswordObs;
+      if (isPasswordObs) {
+        icon = Icon(Icons.visibility, color: Colors.grey);
+      } else {
+        icon = Icon(Icons.visibility_off, color: Colors.grey);
+      }
+    });
   }
-}
 
-// Function to log in using email and password
-Future<void> login() async {
-  if (_formKey.currentState!.validate()) { 
+// Function to sign in with Google
+  void _signInWithGoogle() async {
+    User? user =
+        await _authService.signInWithGoogle(); // Perform Google sign-in
 
-    // Perform login task with email and password
-    var res = await loginTask(_emailController.text, _passwordController.text);
-    var res2 = res.keys.toList();
+    if (user != null) {
+      await setuser(user.uid); // Save user ID to preferences
 
-    if (res[res2[0]]!) { // Check if login was successful
-      // Navigate to bottomNavigationBar screen if login is successful
+      // Navigate to bottomNavigationBar screen if sign-in is successful
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => bottomNavigationBar()),
       );
     } else {
-      // Update login error message if login fails
-      setState(() {
-        loginError = res2[0];
-      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Sign-in failed')),
+      );
     }
   }
-}
 
-@override
+// Function to log in using email and password
+  Future<void> login() async {
+    if (_formKey.currentState!.validate()) {
+      // Perform login task with email and password
+      var res =
+          await loginTask(_emailController.text, _passwordController.text);
+      var res2 = res.keys.toList();
+
+      if (res[res2[0]]!) {
+        // Check if login was successful
+        // Navigate to bottomNavigationBar screen if login is successful
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => bottomNavigationBar()),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Sign-in failed')),
+        );
+      }
+    }
+  }
+
+  @override
   void dispose() {
     // TODO: implement dispose
     _passwordController.dispose();
@@ -206,18 +202,16 @@ Future<void> login() async {
                         ),
                         Container(
                           width: 200,
-                          height: 50, 
+                          height: 50,
                           decoration: BoxDecoration(
                             gradient: ColorProperties.mainColor,
-                            borderRadius: BorderRadius.circular(
-                                30), // 
+                            borderRadius: BorderRadius.circular(30), //
                           ),
                           child: Material(
                             color: Colors
                                 .transparent, // Set the material color to transparent
                             child: InkWell(
-                              borderRadius: BorderRadius.circular(
-                                  30), //
+                              borderRadius: BorderRadius.circular(30), //
                               onTap: login,
                               child: Center(
                                 child: Text(
@@ -258,9 +252,7 @@ Future<void> login() async {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                                height:
-                                    16), 
+                            SizedBox(height: 16),
                             Text(
                               "Don't Have an Account?",
                               style: TextStyle(
@@ -315,7 +307,7 @@ Future<void> login() async {
                             padding: const EdgeInsets.only(right: 20.0),
                             child: Image.asset(
                               'lib/images/Google_logo.png',
-                              height: 40, 
+                              height: 40,
                             ),
                           ),
                           label: Text(

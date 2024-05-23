@@ -6,13 +6,13 @@ import 'package:currensee/preferences.dart';
 import 'package:currensee/models/historical_rates.dart';
 import 'package:http/http.dart' as http;
 
-Future<Map<String,bool>> registerTask(String? name, String? email, String? password, String? uid) async{
-
-    try{
+Future<Map<String, bool>> registerTask(
+    String? name, String? email, String? password, String? uid) async {
+  try {
     Map<String, dynamic> data = {
       'name': name,
       'email': email,
-      'password':password,
+      'password': password,
       'uid': uid
     };
 
@@ -25,22 +25,21 @@ Future<Map<String,bool>> registerTask(String? name, String? email, String? passw
 
     var res = jsonDecode(response.body);
 
-    if(response.statusCode==200){
-      return {res["message"]:true};
-    }else{
-      return {res["message"]:false};
+    if (response.statusCode == 200) {
+      return {res["message"]: true};
+    } else {
+      return {res["message"]: false};
     }
-    }
-    catch(error){      
-        return {"Server / Api not reachable":false};
-    }
+  } catch (error) {
+    return {"Server / Api not reachable": false};
   }
+}
 
-  Future<Map<String,bool>> loginTask(String email, String pass) async{
-    try{
+Future<Map<String, bool>> loginTask(String email, String pass) async {
+  try {
     Map<String, dynamic> data = {
       'email': email,
-      'password':pass,
+      'password': pass,
     };
 
     String body = jsonEncode(data);
@@ -52,47 +51,69 @@ Future<Map<String,bool>> registerTask(String? name, String? email, String? passw
 
     var res = jsonDecode(response.body);
 
-      if(response.statusCode==200){
+    if (response.statusCode == 200) {
+      setuser(res["user"]["id"]);
+      setUserData();
 
-        setuser(res["user"]["id"]);
-        setUserData();
-
-        return {res["message"]:true};
-        
-      }else{
-        return {res["message"]:false};
-      }
+      return {res["message"]: true};
+    } else {
+      return {res["message"]: false};
     }
-    catch(error){
-      print(error.toString());
-        return {"Server / Api not reachable":false};
-    }
+  } catch (error) {
+    print(error.toString());
+    return {"Server / Api not reachable": false};
   }
+}
 
-  Future<UserModel?> userDataTask(String id) async{
-    try{
+Future<Map<String, dynamic>> changePasswordTask(
+    String email, String oldpassword, String newpassword) async {
+  try {
+    Map<String, dynamic> data = {
+      'email': email,
+      'oldPassword': oldpassword,
+      'newPassword': newpassword
+    };
+
+    String body = jsonEncode(data);
 
     http.Response response = await http.post(
-      Uri.parse(userDataUrl+id),
+      Uri.parse(userPasswordUpdateurl),
+      body: body,
     );
-    if(response.statusCode==200){
-     var user = UserModel.convertFromJson(jsonDecode(response.body));
+
+    var res = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      return {"status": true, "message": res["message"]};
+    } else {
+      return {"status": false, "message": res["message"]};
+    }
+  } catch (error) {
+    return {"ApiFailed": true, "message": error.toString()};
+  }
+}
+
+Future<UserModel?> userDataTask(String id) async {
+  try {
+    http.Response response = await http.post(
+      Uri.parse(userDataUrl + id),
+    );
+    if (response.statusCode == 200) {
+      var user = UserModel.convertFromJson(jsonDecode(response.body));
       return user;
-    }else{
+    } else {
       return null;
     }
-    }
-    catch(error){
-        print(error.toString());
-        return null;
-    }
+  } catch (error) {
+    print(error.toString());
+    return null;
   }
+}
 
-    Future<bool?> uidCheckTask(String uid) async{
-    try{
-
+Future<bool?> uidCheckTask(String uid) async {
+  try {
     http.Response response = await http.post(
-      Uri.parse(uidCheckUrl+uid),
+      Uri.parse(uidCheckUrl + uid),
     );
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -100,19 +121,18 @@ Future<Map<String,bool>> registerTask(String? name, String? email, String? passw
     } else {
       return false;
     }
-    }
-    catch(error){
-        print(error.toString());
-        return null;
-    }
+  } catch (error) {
+    print(error.toString());
+    return null;
   }
+}
 
-  Future<void> feedbackTask(String message, int rating) async {
-    try{
-      Map<String, dynamic> data = {
+Future<void> feedbackTask(String message, int rating) async {
+  try {
+    Map<String, dynamic> data = {
       'message': message,
-      'rating':rating,
-      'id':await getUser(),
+      'rating': rating,
+      'id': await getUser(),
     };
 
     String body = jsonEncode(data);
@@ -122,27 +142,24 @@ Future<Map<String,bool>> registerTask(String? name, String? email, String? passw
       body: body,
     );
 
-      if(response.statusCode==200){
-        
-      }else{
-        print("Feedback Failure");
-      }
+    if (response.statusCode == 200) {
+    } else {
+      print("Feedback Failure");
     }
-    catch(error){
-        print(error.toString());
-        return;
-    }
+  } catch (error) {
+    print(error.toString());
+    return;
   }
+}
 
-
-  Future<Map<String,dynamic>> conversionTask(String baseCurrency,String targetCurrency, String amount, String id) async{
-    try{
-      
-      Map<String, dynamic> data = {
+Future<Map<String, dynamic>> conversionTask(String baseCurrency,
+    String targetCurrency, String amount, String id) async {
+  try {
+    Map<String, dynamic> data = {
       'base': baseCurrency,
-      'target':targetCurrency,
-      'id':id,
-      'amount':amount
+      'target': targetCurrency,
+      'id': id,
+      'amount': amount
     };
 
     String body = jsonEncode(data);
@@ -154,23 +171,21 @@ Future<Map<String,bool>> registerTask(String? name, String? email, String? passw
 
     var res = jsonDecode(response.body);
 
-    if(response.statusCode==200){
-      return {"rate":res["exchange_rate"],"amount":res["converted_amount"]};
-      
-    }else{
-      return {"message":"API Failure"};
+    if (response.statusCode == 200) {
+      return {"rate": res["exchange_rate"], "amount": res["converted_amount"]};
+    } else {
+      return {"message": "API Failure"};
     }
-    }
-    catch(error){
-        print(error.toString());
-        return {};
-    }
+  } catch (error) {
+    print(error.toString());
+    return {};
   }
+}
 
-  Future<List<HistoricalRates>> historicalRateTask(int month, int year, String currency) async {
-    
-    try{
-      Map<String, dynamic> data = {
+Future<List<HistoricalRates>> historicalRateTask(
+    int month, int year, String currency) async {
+  try {
+    Map<String, dynamic> data = {
       'month': month,
       'year': year,
       'currencyCode': currency
@@ -187,22 +202,19 @@ Future<Map<String,bool>> registerTask(String? name, String? email, String? passw
 
     var res = result.map((e) => HistoricalRates.convertFromJson(e)).toList();
 
-    if(response.statusCode==200){
+    if (response.statusCode == 200) {
       return res;
-      
-    }else{
+    } else {
       return [];
     }
-    }
-    catch(error){
-        print(error.toString());
-        return [];
-    }
+  } catch (error) {
+    print(error.toString());
+    return [];
   }
+}
 
 Future<List<String>> fetchCurrencyCodes() async {
   try {
-
     http.Response response = await http.post(
       Uri.parse(currencyCodesURL),
     );
@@ -213,16 +225,12 @@ Future<List<String>> fetchCurrencyCodes() async {
           data.map((e) => e['CurrencyCode'].toString()).toList();
       return currencyCodes;
     } else {
-      
       throw Exception('Failed to load currency codes: ${response.statusCode}');
-
     }
   } catch (e) {
-
     print('Error fetching currency codes: $e');
 
     return [];
-
   }
 }
 
@@ -233,9 +241,8 @@ Future<Map<String, dynamic>> conversionHistoryTask(String id) async {
     );
 
     if (response.statusCode == 200) {
-
       List<dynamic> data = jsonDecode(response.body);
-    
+
       List<Map<String, dynamic>> historyList = data.map((record) {
         return {
           'base': record['Base_Currency'],
@@ -270,13 +277,13 @@ Future<Map<String, dynamic>> conversionHistoryTask(String id) async {
   }
 }
 
-Future<String> userPreferencesTask(String BaseCurrency, String TargetCurrency, String id, bool Notifications) async {
-
-    try{
+Future<String> userPreferencesTask(String BaseCurrency, String TargetCurrency,
+    String id, bool Notifications) async {
+  try {
     Map<String, dynamic> data = {
       'baseCurrency': BaseCurrency,
       'targetCurrency': TargetCurrency,
-      'notification':Notifications,
+      'notification': Notifications,
       'id': id
     };
 
@@ -293,21 +300,19 @@ Future<String> userPreferencesTask(String BaseCurrency, String TargetCurrency, S
 
     print(res);
 
-    if(response.statusCode==200){
+    if (response.statusCode == 200) {
       print(res['message']);
       return res['message'];
-    }else{
+    } else {
       print(res['message']);
       return res['message'];
     }
-    }
-    catch(error){      
-      print(error.toString());
-      return error.toString();
-        // return {"Server / Api not reachable":false};
-    }
+  } catch (error) {
+    print(error.toString());
+    return error.toString();
+    // return {"Server / Api not reachable":false};
+  }
 }
-
 
 Future<Map<String, dynamic>> fetchPreferencesTask(String id) async {
   try {
@@ -323,10 +328,7 @@ Future<Map<String, dynamic>> fetchPreferencesTask(String id) async {
       if (res.isEmpty) {
         print('Result is Empty');
 
-        return {
-          'APIStatus': true,
-          'message': 'No Data Found'
-        };
+        return {'APIStatus': true, 'message': 'No Data Found'};
       }
 
       return {
@@ -337,9 +339,7 @@ Future<Map<String, dynamic>> fetchPreferencesTask(String id) async {
       };
     } else {
       print('Preferences fetch Failed');
-      return {
-        'APIStatus': false
-      };
+      return {'APIStatus': false};
     }
   } catch (error) {
     print(error.toString());

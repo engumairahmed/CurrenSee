@@ -21,8 +21,6 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
   String _baseCurrency = '';
   String _targetCurrency = '';
 
-  bool _swapCurrency = false;
-
   List<String> _currencyCodes = [];
 
   Future<void> _fetchCurrencyCodes() async {
@@ -78,11 +76,23 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    _amount.dispose();
+    _rate.dispose();
+    _converted.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: RoundAppBar(pageTitle: 'Convert', buildContext: context),
       body: _currencyCodes.isEmpty
-          ? Center(child: CircularProgressIndicator(color: ColorProperties.lightColor2,))
+          ? Center(
+              child: CircularProgressIndicator(
+              color: ColorProperties.lightColor2,
+            ))
           : Container(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -98,9 +108,10 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
                       child: TextField(
                         controller: _amount,
                         decoration: InputDecoration(
-                           focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: ColorProperties.darkColor,width: 2),
-                                  ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: ColorProperties.darkColor, width: 2),
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide: BorderSide(color: Colors.black),
@@ -152,16 +163,19 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
                                   );
                                 }).toList(),
                                 decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: ColorProperties.darkColor,width: 2),
-                                  ),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 15, horizontal: 15),
-                                  labelText: 'Base Currency',
-                                  focusColor: ColorProperties.darkColor,
-                                  labelStyle: TextStyle(color: ColorProperties.darkColor,)
-                                ),
+                                    border: OutlineInputBorder(),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: ColorProperties.darkColor,
+                                          width: 2),
+                                    ),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 15),
+                                    labelText: 'Base Currency',
+                                    focusColor: ColorProperties.darkColor,
+                                    labelStyle: TextStyle(
+                                      color: ColorProperties.darkColor,
+                                    )),
                               ),
                             ),
                           ),
@@ -211,16 +225,19 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
                                   );
                                 }).toList(),
                                 decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: ColorProperties.darkColor,width: 2),
-                                  ),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 15, horizontal: 15),
-                                  labelText: 'Target Currency',
-                                  focusColor: ColorProperties.darkColor,
-                                  labelStyle: TextStyle(color: ColorProperties.darkColor,)
-                                ),
+                                    border: OutlineInputBorder(),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: ColorProperties.darkColor,
+                                          width: 2),
+                                    ),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 15),
+                                    labelText: 'Target Currency',
+                                    focusColor: ColorProperties.darkColor,
+                                    labelStyle: TextStyle(
+                                      color: ColorProperties.darkColor,
+                                    )),
                               ),
                             ),
                           ),

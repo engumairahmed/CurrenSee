@@ -1,14 +1,14 @@
-import 'package:currensee/api_tasks.dart'; // Importing API tasks
-import 'package:currensee/screens/auth/login.dart'; // Importing login screen
-import 'package:flutter/material.dart'; // Importing Flutter material package
-import 'package:google_fonts/google_fonts.dart'; // Importing Google Fonts
-import 'package:currensee/app_properties.dart'; // Importing app properties for styling
+import 'package:currensee/api_tasks.dart';
+import 'package:currensee/screens/auth/login.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:currensee/app_properties.dart';
 
 class RegisterPageScreen extends StatefulWidget {
   const RegisterPageScreen({Key? key}) : super(key: key);
 
   @override
-  State<RegisterPageScreen> createState() => _RegisterPageScreenState(); // Creating state for RegisterPageScreen
+  State<RegisterPageScreen> createState() => _RegisterPageScreenState();
 }
 
 class _RegisterPageScreenState extends State<RegisterPageScreen> {
@@ -30,9 +30,9 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
     setState(() {
       isPasswordObs = !isPasswordObs;
       if (isPasswordObs) {
-        icon = Icon(Icons.visibility, color: Colors.grey); // Show password
+        icon = Icon(Icons.visibility, color: Colors.grey);
       } else {
-        icon = Icon(Icons.visibility_off, color: Colors.grey); // Hide password
+        icon = Icon(Icons.visibility_off, color: Colors.grey);
       }
     });
   }
@@ -185,6 +185,9 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'Please confirm your password'; // Validation for empty confirm password
+                                  }
+                                  if (value.length > 8) {
+                                    return 'Password must be at least 8 characters long';
                                   }
                                   if (value != _password) {
                                     return 'Passwords do not match'; // Validation for mismatched passwords

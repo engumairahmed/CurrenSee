@@ -81,10 +81,13 @@ Future<Map<String,dynamic>> getUserPreferences() async {
   var targetCurrency = shared.getString('targetCurrency');
   var notification = shared.getBool('notification');
   if(baseCurrency==null || targetCurrency==null){
+
     print('SharedPreferences not found');
+
     return {
       'status':false
     };
+
   }else{
 
     return {
@@ -93,6 +96,7 @@ Future<Map<String,dynamic>> getUserPreferences() async {
         'targetCurrency': targetCurrency,
         'notification': notification
       };
+      
   }
   
 }

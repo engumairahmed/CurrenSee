@@ -1,6 +1,4 @@
 import 'package:currensee/app_properties.dart'; // Importing app properties for styling
-import 'package:currensee/screens/AppBar.dart'; // Importing custom app bar
-import 'package:currensee/screens/drawer.dart'; // Importing custom drawer
 
 import 'package:flutter/material.dart'; // Importing Flutter material package
 import 'package:google_fonts/google_fonts.dart'; // Importing Google Fonts package
@@ -76,9 +74,30 @@ class _FAQScreenState extends State<FAQScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
     
-      appBar: RoundAppBar(pageTitle: 'FAQs', buildContext: context,), // Custom app bar with title 'FAQs'
-      drawer: CustomDrawer(), // Custom navigation drawer
-
+      appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(gradient: ColorProperties.mainColorCross),
+        ),
+        title: Center(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 70),
+              child: Text(
+                        'FAQs',
+                        style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+                        ),
+                      ),
+            )),
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back,color: Colors.white,),
+          onPressed:(){
+            Navigator.pop(context);
+          } ,
+        ),
+      ),
       body: Container(
         height: MediaQuery.of(context).size.height, // Full screen height
         decoration: BoxDecoration(

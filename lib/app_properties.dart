@@ -13,6 +13,13 @@ class ColorProperties {
       ]
   );
 
+  static LinearGradient mainColorLinear = const LinearGradient(
+      colors: [    
+          Color(0xFF00203F),
+          Color(0xFFADEFD1),
+        ]
+      );
+
   static Gradient mainColorInverted =  const LinearGradient(
       colors: [    
         Color(0xFFADEFD1),
