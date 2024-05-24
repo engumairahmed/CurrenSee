@@ -14,10 +14,10 @@ class CurrencyModel{
 
   static CurrencyModel convertFromJson(Map<String, dynamic> json){
     return CurrencyModel(
-      id: json["User_ID"],
-      name: json["Name"],
-      code: json["Email"],
-      symbol: json["Password"]
+      id: json["CurrencyId"],
+      name: json["CurrencyName"],
+      code: json["CurrencyCode"],
+      symbol: json["CurrencySymbol"]
     );
   }
 }

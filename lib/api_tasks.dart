@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:currensee/api_endpoints.dart';
+import 'package:currensee/models/currency_model.dart';
 import 'package:currensee/models/user_model.dart';
 import 'package:currensee/preferences.dart';
 import 'package:currensee/models/historical_rates.dart';
@@ -155,16 +156,9 @@ Future<Map<String, dynamic>> userFeedbackTask(String id) async {
 
     var res = jsonDecode(response.body);
 
-    print(res);
-    print("userFeedbackApi Called");
     if (response.statusCode == 200) {
-      var Rating = int.parse(res['Rating']);
-      assert(Rating is int);
-      return {
-        "status": true,
-        "rating": Rating,
-        "feedback": res["Message"]
-      };
+      var rating = int.parse(res['Rating']);
+      return {"status": true, "rating": rating, "feedback": res["Message"]};
     } else {
       return {"status": false, "message": res["message"]};
     }
@@ -247,8 +241,33 @@ Future<List<String>> fetchCurrencyCodes() async {
       throw Exception('Failed to load currency codes: ${response.statusCode}');
     }
   } catch (e) {
-    ;
+    return [];
+  }
+}
 
+Future<List<CurrencyModel>> getCurrencyList() async {
+  try {
+    Map<String, dynamic> data = {
+      'currencies': 1
+    };
+
+    String body = jsonEncode(data);
+
+    http.Response response = await http.post(
+      Uri.parse(currencyListURL),
+      body: body,
+    );
+
+    List<dynamic> result = jsonDecode(response.body);
+
+    var res = result.map((e) => CurrencyModel.convertFromJson(e)).toList();
+
+    if(response.statusCode == 200){
+      return res;
+    } else{
+      return [];
+    }
+  } catch (error) {
     return [];
   }
 }

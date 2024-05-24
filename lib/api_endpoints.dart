@@ -53,6 +53,9 @@ String historicalRatesURL = "http://localhost/phpapi/currensee/conversion/histor
 String currencyCodesURL="https://currensee.000webhostapp.com/conversion/getcurrencycodes.php";
 // String currencyCodesURL = "http://localhost/phpapi/currensee/conversion/getcurrencycodes.php";
 
+// ------> Get Currency List URL
+
+String currencyListURL="https://currensee.000webhostapp.com/conversion/getcurrencylist.php";
 
 // ------> User Conversion History URL
 

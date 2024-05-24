@@ -5,6 +5,7 @@ import 'package:currensee/screens/feedback.dart';
 import 'package:currensee/screens/conversion_history.dart';
 import 'package:currensee/screens/faq_screen.dart';
 import 'package:currensee/screens/auth/login.dart';
+import 'package:currensee/screens/supported_currencies.dart';
 import 'package:currensee/screens/user_preferences.dart';
 import 'package:flutter/material.dart';
 // import 'history.dart';
@@ -78,6 +79,19 @@ class _CustomDrawerState extends State<CustomDrawer> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => ConversionHistory()),
+              );
+            },
+          ),
+          Divider(
+            color: Colors.grey,
+            thickness: 2.0,
+          ),ListTile(
+            leading: Icon(Icons.question_mark),
+            title: Text('Supported Currencies'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SupportedCurrencies()),
               );
             },
           ),
