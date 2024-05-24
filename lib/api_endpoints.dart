@@ -56,8 +56,8 @@ String currencyCodesURL="https://currensee.000webhostapp.com/conversion/getcurre
 
 // ------> User Conversion History URL
 
-String conversionHistoryURL = "https://currensee.000webhostapp.com/conversion/conversionhistory.php?id=";
-// String conversionHistoryURL = "http://localhost/phpapi/currensee/conversion/conversionhistory.php?id=";
+// String conversionHistoryURL = "https://currensee.000webhostapp.com/conversion/conversionhistory.php?id=";
+String conversionHistoryURL = "http://localhost/phpapi/currensee/conversion/conversionhistory.php?id=";
 
 
 // ------> User Preferences URL

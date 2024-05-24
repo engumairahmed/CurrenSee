@@ -158,10 +158,12 @@ Future<Map<String, dynamic>> userFeedbackTask(String id) async {
     print(res);
     print("userFeedbackApi Called");
     if (response.statusCode == 200) {
+      var Rating = int.parse(res['Rating']);
+      assert(Rating is int);
       return {
         "status": true,
-        "rating": res["Rating"],
-        "feedbak": res["Message"]
+        "rating": Rating,
+        "feedback": res["Message"]
       };
     } else {
       return {"status": false, "message": res["message"]};
@@ -244,7 +246,8 @@ Future<List<String>> fetchCurrencyCodes() async {
     } else {
       throw Exception('Failed to load currency codes: ${response.statusCode}');
     }
-  } catch (e) {;
+  } catch (e) {
+    ;
 
     return [];
   }
@@ -334,29 +337,27 @@ Future<Map<String, dynamic>> fetchPreferencesTask(String id) async {
     var res = jsonDecode(response.body);
 
     if (response.statusCode == 200) {
-
       if (res.isEmpty) {
         return {'APIStatus': true, 'message': 'No Data Found'};
       } else {
-        if(res["Notification"]=="1"){
-          return {          
-          'APIStatus': true,
-          'baseCurrency': res['Default_Base_Currency'],
-          'targetCurrency': res['Default_Target_Currency'],
-          'notification': true,
-        };
-        } else{
-          return {          
-          'APIStatus': true,
-          'baseCurrency': res['Default_Base_Currency'],
-          'targetCurrency': res['Default_Target_Currency'],
-          'notification': false,
-        };
+        if (res["Notification"] == "1") {
+          return {
+            'APIStatus': true,
+            'baseCurrency': res['Default_Base_Currency'],
+            'targetCurrency': res['Default_Target_Currency'],
+            'notification': true,
+          };
+        } else {
+          return {
+            'APIStatus': true,
+            'baseCurrency': res['Default_Base_Currency'],
+            'targetCurrency': res['Default_Target_Currency'],
+            'notification': false,
+          };
         }
-        
       }
     } else {
-      return {'APIStatus': false,'message': 'No Data Found'};
+      return {'APIStatus': false, 'message': 'No Data Found'};
     }
   } catch (error) {
     return {'message': error.toString()};

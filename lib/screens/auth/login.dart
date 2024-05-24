@@ -75,8 +75,9 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   Future<void> login() async {
     if (_formKey.currentState!.validate()) {
       // Perform login task with email and password
+      String capitalizedEmail = _emailController.text.toUpperCase();
       var res =
-          await loginTask(_emailController.text, _passwordController.text);
+          await loginTask(capitalizedEmail, _passwordController.text);
       var res2 = res.keys.toList();
 
       if (res[res2[0]]!) {
@@ -269,11 +270,12 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                                               const RegisterPageScreen()));
                                 },
                                 child: Text(
-                                  "Sign up",
+                                  "SIGN UP",
                                   style: TextStyle(
                                       color: ColorProperties.darkColor,
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold),
+                                      decoration: TextDecoration.underline,
+                                      fontStyle: FontStyle.italic,
+                                      fontSize: 25,),
                                 ))
                           ],
                         ),

@@ -12,6 +12,7 @@ class FeedBackScreen extends StatefulWidget {
 
 class _FeedBackScreenState extends State<FeedBackScreen> {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  final TextEditingController _feedbackController = TextEditingController();
 
   int _rating = 0;
   String _feedback = '';
@@ -20,6 +21,12 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
   void initState() {
     super.initState();
     _getFeedback();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _feedbackController.dispose();
+    super.dispose();
   }
 
   void _onRatingChanged(int rating) {
@@ -52,15 +59,19 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
     var id = await getUser();
     var res = await userFeedbackTask(id!);
     if(res['status']){
+      print(res);
+      int rating = res['rating'];
+      String feedback = res['feedback'].toString();
       setState(() {
-        _feedback = res['data']['feedback'];
-        _rating = res['data']['rating'];
+        _feedbackController.text = feedback;
+        _rating = rating;
       });
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(res['message'])),
-        );
     }
+    //  else {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(content: Text(res['message'])),
+    //   );
+    // }
   }
 
   @override
@@ -178,7 +189,8 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
                         Container(
                           color: Colors.white,
                           child: TextFormField(
-                            decoration: InputDecoration(
+                            controller: _feedbackController,
+                            decoration: const InputDecoration(
                               fillColor: Colors.white,
                               hintText: 'We would love to hear your feedback',
                               border: OutlineInputBorder(),

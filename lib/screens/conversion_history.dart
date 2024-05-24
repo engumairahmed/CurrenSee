@@ -17,11 +17,17 @@ class _ConversionHistoryState extends State<ConversionHistory> {
   Future<void> conversionHistory() async {
     var id = await getUser();
     var _history = await conversionHistoryTask(id!);
-    if(_history['status']) {
-      
+    if(_history['status']) {      
       setState(() {
         history = List<Map<String, dynamic>>.from(_history['data']);
       });
+    } else{
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(_history['message'])),
+        );
+        Future.delayed(Duration(seconds: 2), () {
+          Navigator.pop(context);
+        });
     }
   }
 
@@ -37,7 +43,9 @@ class _ConversionHistoryState extends State<ConversionHistory> {
     return Scaffold(
       appBar: AppBar(title: Text('History')),
       body: history.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: CircularProgressIndicator(
+            color: ColorProperties.lightColor2,
+          ))
           : ListView.builder(
               itemCount: history.length,
               itemBuilder: (context, index) {
