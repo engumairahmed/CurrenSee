@@ -1,6 +1,7 @@
 
 
 import 'package:currensee/firebase_options.dart';
+import 'package:currensee/screens/news_feeds.dart';
 import 'package:currensee/screens/splash_screen.dart';
 import 'package:currensee/screens/supported_currencies.dart';
 import 'package:firebase_core/firebase_core.dart';
